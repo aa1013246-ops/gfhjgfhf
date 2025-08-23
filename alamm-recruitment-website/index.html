@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<script type="text/javascript">
+  // This is a CodeSandbox injection script that's used to
+  // add navigation and inspector functionality to the preview
+  (function () {
+    // 1) Get the <script> tag that's currently running:
+    var me = document.currentScript;
+
+    // 2) Create the blocking‐style <script> to load:
+    var script = document.createElement("script");
+    script.src = "https://codesandbox.io/p/preview-protocol.js";
+
+    // By default a dynamically‐inserted <script> is async=true.
+    // Turn async off to make it behave like a normal blocking <script>:
+    script.async = false;
+    // (Do NOT set defer.)
+
+    // 3) Insert it immediately after the current <script>:
+    me.parentNode.insertBefore(script, me);
+  })();
+
+  const isIFramePreview = window.top !== window.self;
+
+  // Only run this script in editor context
+  if (isIFramePreview) {
+    // This script is used to enable Chrome DevTools functionality
+    (function () {
+      var script = document.createElement("script");
+      script.src =
+        "https://codesandbox.io/p/chrome-devtool/protocol/index.js";
+
+      script.onload = () => {
+        const devtoolProtocol = window.chobitsu;
+        if (devtoolProtocol) {
+          window.addEventListener("message", (event) => {
+            const { type, data } = event.data;
+
+            if (type === "FROM_DEVTOOL") {
+              devtoolProtocol.sendRawMessage(data);
+            }
+          });
+
+          devtoolProtocol.setOnMessage((data) => {
+            if (data.includes('"id":"tmp')) {
+              return;
+            }
+
+            window.parent.postMessage({ type: "TO_DEVTOOL", data }, "*");
+          });
+
+          devtoolProtocol.sendRawMessage(
+            `{"id":5,"method":"Runtime.enable","params":{}}`
+          );
+        }        
+      }
+
+      (document.head || document.documentElement).prepend(script);
+    })();
+  }
+
+  if (typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ === "undefined") {
+    let nextID = 0;
+    let hook = (__REACT_DEVTOOLS_GLOBAL_HOOK__ = {
+      renderers: new Map(),
+      supportsFiber: true,
+      inject: (renderer) => {
+        const id = nextID++;
+        hook.renderers.set(id, renderer);
+        return id;
+      },
+      onScheduleFiberRoot() {},
+      onCommitFiberRoot() {},
+      onCommitFiberUnmount() {},
+    });
+  }
+
+  document.currentScript.remove();
+</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مكتب الأمم للاستقدام - خدمات استقدام العمالة المنزلية والسائقين في الرياض</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="مكتب الأمم للاستقدام - الرائد في خدمات استقدام العمالة المنزلية والسائقين في الرياض، السعودية. خدمة 24 ساعة، موثوق ومعتمد">
+    <meta name="keywords" content="استقدام عمالة منزلية الرياض، استقدام سائقين السعودية، خادمات، مربيات، عمال منزليين، الأمم للاستقدام">
+    <meta name="author" content="مكتب الأمم للاستقدام">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="مكتب الأمم للاستقدام - خدمات استقدام العمالة المنزلية">
+    <meta property="og:description" content="الرائد في خدمات استقدام العمالة المنزلية والسائقين في الرياض، السعودية">
+    <meta property="og:url" content="https://samma-sa.com">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="ar_SA">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="مكتب الأمم للاستقدام">
+    <meta name="twitter:description" content="خدمات استقدام العمالة المنزلية والسائقين - خدمة 24 ساعة">
+    
+    <!-- Structured Data - Local Business Schema -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "LocalBusiness",
+        "name": "مكتب الأمم للاستقدام",
+        "alternateName": "Al-Umam Recruitment Office",
+        "description": "مكتب متخصص في استقدام العمالة المنزلية والسائقين في الرياض، السعودية",
+        "url": "https://samma-sa.com",
+        "email": "info@samma-sa.com",
+        "telephone": "+966500851716",
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "السليمانية",
+            "addressLocality": "الرياض",
+            "addressRegion": "الرياض",
+            "addressCountry": "SA"
+        },
+        "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": "24.635459",
+            "longitude": "46.694651"
+        },
+        "openingHours": "Mo-Su 00:00-24:00",
+        "areaServed": {
+            "@type": "Country",
+            "name": "السعودية"
+        },
+        "sameAs": [
+            "https://samma-sa.com"
+        ],
+        "hasOfferCatalog": {
+            "@type": "OfferCatalog",
+            "name": "خدمات الاستقدام",
+            "itemListElement": [
+                {
+                    "@type": "Offer",
+                    "itemOffered": {
+                        "@type": "Service",
+                        "name": "استقدام عمالة منزلية",
+                        "description": "خدمات استقدام الخادمات والعمالة المنزلية"
+                    }
+                },
+                {
+                    "@type": "Offer",
+                    "itemOffered": {
+                        "@type": "Service",
+                        "name": "استقدام سائقين",
+                        "description": "خدمات استقدام السائقين المحترفين"
+                    }
+                }
+            ]
+        }
+    }
+    </script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-color: #1e40af;
+            --primary-dark: #1e3a8a;
+            --secondary-color: #0ea5e9;
+            --accent-color: #f59e0b;
+            --success-color: #10b981;
+            --text-primary: #1f2937;
+            --text-secondary: #6b7280;
+            --background: #ffffff;
+            --background-light: #f9fafb;
+            --border-color: #e5e7eb;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 20px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: var(--background);
+            direction: rtl;
+            text-align: right;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 200"><polygon fill="rgba(255,255,255,0.1)" points="0,200 1000,50 1000,200"/></svg>');
+            background-size: cover;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .logo {
+            font-family: 'Amiri', serif;
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .tagline {
+            font-size: 1.2rem;
+            opacity: 0.95;
+            margin-bottom: 2rem;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: var(--accent-color);
+            color: white;
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* Services Section */
+        .services {
+            padding: 4rem 0;
+            background: var(--background-light);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            color: var(--primary-color);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .service-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            border-top: 4px solid var(--primary-color);
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .service-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .service-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--primary-dark);
+        }
+
+        .service-description {
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 4rem 0;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-item {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+        }
+
+        .feature-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--primary-dark);
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 4rem 0;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1.5rem;
+            border-radius: 8px;
+            backdrop-filter: blur(10px);
+        }
+
+        .contact-icon {
+            font-size: 2rem;
+            color: var(--accent-color);
+        }
+
+        .contact-info h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-info p {
+            opacity: 0.9;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--primary-dark);
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 2rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .services-grid,
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .service-card,
+        .feature-item {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        /* Utility Classes */
+        .text-center {
+            text-align: center;
+        }
+
+        .mb-2 {
+            margin-bottom: 1rem;
+        }
+
+        .mb-3 {
+            margin-bottom: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <h1 class="logo">مكتب الأمم للاستقدام</h1>
+                <p class="tagline">الرائد في خدمات استقدام العمالة المنزلية والسائقين في الرياض</p>
+                <div class="cta-buttons">
+                    <a href="tel:+966500851716" class="btn btn-primary">
+                        📞 اتصل الآن
+                    </a>
+                    <a href="https://wa.me/966500851716" class="btn btn-outline" target="_blank">
+                        💬 واتساب
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Services Section -->
+    <section class="services">
+        <div class="container">
+            <h2 class="section-title">خدماتنا المتميزة</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">🏠</div>
+                    <h3 class="service-title">استقدام عمالة منزلية</h3>
+                    <p class="service-description">نوفر لكم أفضل العمالة المنزلية المدربة من مختلف الجنسيات لخدمة منازلكم بأعلى معايير الجودة والمهنية.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">🚗</div>
+                    <h3 class="service-title">استقدام سائقين</h3>
+                    <p class="service-description">سائقون محترفون ومدربون على القيادة الآمنة مع خبرة واسعة في شوارع المملكة العربية السعودية.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">👶</div>
+                    <h3 class="service-title">استقدام مربيات</h3>
+                    <p class="service-description">مربيات مؤهلات ومدربات على رعاية الأطفال بأحدث الطرق التربوية والتعليمية المعتمدة عالمياً.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">👴</div>
+                    <h3 class="service-title">رعاية كبار السن</h3>
+                    <p class="service-description">عمالة متخصصة في رعاية كبار السن بعناية فائقة واهتمام شخصي لضمان راحتهم وسلامتهم.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">🌍</div>
+                    <h3 class="service-title">استقدام دولي</h3>
+                    <p class="service-description">خدمات استقدام شاملة من مختلف الدول مع ضمان سرعة الإجراءات والحصول على أفضل العمالة.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">💼</div>
+                    <h3 class="service-title">استشارات وخدمات</h3>
+                    <p class="service-description">نقدم استشارات مجانية ومتابعة شاملة لجميع إجراءات الاستقدام مع خدمة عملاء متميزة.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title">لماذا تختار مكتب الأمم؟</h2>
+            <div class="features-grid">
+                <div class="feature-item">
+                    <div class="feature-icon">⏰</div>
+                    <h3 class="feature-title">خدمة 24 ساعة</h3>
+                    <p>نحن في خدمتكم على مدار الساعة لتلبية جميع احتياجاتكم والرد على استفساراتكم في أي وقت.</p>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">✅</div>
+                    <h3 class="feature-title">موثوق ومعتمد</h3>
+                    <p>مكتب مرخص ومعتمد من الجهات الرسمية مع سجل حافل من النجاحات والعملاء الراضين.</p>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">🏆</div>
+                    <h3 class="feature-title">خبرة طويلة</h3>
+                    <p>سنوات من الخبرة في مجال الاستقدام مما يضمن لكم الحصول على أفضل الخدمات والنتائج.</p>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">👥</div>
+                    <h3 class="feature-title">فريق متخصص</h3>
+                    <p>فريق عمل محترف ومتخصص في جميع جوانب الاستقدام لضمان سلاسة جميع الإجراءات.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact">
+        <div class="container">
+            <h2 class="section-title">تواصل معنا</h2>
+            <div class="contact-grid">
+                <div class="contact-item">
+                    <div class="contact-icon">📞</div>
+                    <div class="contact-info">
+                        <h3>الهاتف</h3>
+                        <p>+966 50 085 1716</p>
+                    </div>
+                </div>
+                
+                <div class="contact-item">
+                    <div class="contact-icon">📧</div>
+                    <div class="contact-info">
+                        <h3>البريد الإلكتروني</h3>
+                        <p><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="fb92959d94bb889a96969ad6889ad5989496">[email&#160;protected]</a></p>
+                    </div>
+                </div>
+                
+                <div class="contact-item">
+                    <div class="contact-icon">📍</div>
+                    <div class="contact-info">
+                        <h3>العنوان</h3>
+                        <p>السليمانية، الرياض، المملكة العربية السعودية</p>
+                    </div>
+                </div>
+                
+                <div class="contact-item">
+                    <div class="contact-icon">🌐</div>
+                    <div class="contact-info">
+                        <h3>الموقع الإلكتروني</h3>
+                        <p>samma-sa.com</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 مكتب الأمم للاستقدام. جميع الحقوق محفوظة.</p>
+            <p>مرخص من وزارة الموارد البشرية والتنمية الاجتماعية</p>
+        </div>
+    </footer>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script></body>
+</html>
