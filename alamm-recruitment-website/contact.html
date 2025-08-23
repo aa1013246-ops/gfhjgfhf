@@ -1,0 +1,1356 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<script type="text/javascript">
+  // This is a CodeSandbox injection script that's used to
+  // add navigation and inspector functionality to the preview
+  (function () {
+    // 1) Get the <script> tag that's currently running:
+    var me = document.currentScript;
+
+    // 2) Create the blocking‐style <script> to load:
+    var script = document.createElement("script");
+    script.src = "https://codesandbox.io/p/preview-protocol.js";
+
+    // By default a dynamically‐inserted <script> is async=true.
+    // Turn async off to make it behave like a normal blocking <script>:
+    script.async = false;
+    // (Do NOT set defer.)
+
+    // 3) Insert it immediately after the current <script>:
+    me.parentNode.insertBefore(script, me);
+  })();
+
+  const isIFramePreview = window.top !== window.self;
+
+  // Only run this script in editor context
+  if (isIFramePreview) {
+    // This script is used to enable Chrome DevTools functionality
+    (function () {
+      var script = document.createElement("script");
+      script.src =
+        "https://codesandbox.io/p/chrome-devtool/protocol/index.js";
+
+      script.onload = () => {
+        const devtoolProtocol = window.chobitsu;
+        if (devtoolProtocol) {
+          window.addEventListener("message", (event) => {
+            const { type, data } = event.data;
+
+            if (type === "FROM_DEVTOOL") {
+              devtoolProtocol.sendRawMessage(data);
+            }
+          });
+
+          devtoolProtocol.setOnMessage((data) => {
+            if (data.includes('"id":"tmp')) {
+              return;
+            }
+
+            window.parent.postMessage({ type: "TO_DEVTOOL", data }, "*");
+          });
+
+          devtoolProtocol.sendRawMessage(
+            `{"id":5,"method":"Runtime.enable","params":{}}`
+          );
+        }        
+      }
+
+      (document.head || document.documentElement).prepend(script);
+    })();
+  }
+
+  if (typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ === "undefined") {
+    let nextID = 0;
+    let hook = (__REACT_DEVTOOLS_GLOBAL_HOOK__ = {
+      renderers: new Map(),
+      supportsFiber: true,
+      inject: (renderer) => {
+        const id = nextID++;
+        hook.renderers.set(id, renderer);
+        return id;
+      },
+      onScheduleFiberRoot() {},
+      onCommitFiberRoot() {},
+      onCommitFiberUnmount() {},
+    });
+  }
+
+  document.currentScript.remove();
+</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تواصل معنا - مكتب الأمم للاستقدام | احجز استشارة مجانية</title>
+    <meta name="description" content="تواصل مع مكتب الأمم للاستقدام الآن! احجز استشارة مجانية، تقدم بطلب استقدام، أو تحدث معنا مباشرة. خدمة عملاء 24/7">
+    <meta name="keywords" content="تواصل معنا، احجز موعد، استشارة مجانية، خدمة عملاء، اتصل بنا، واتساب، هاتف الأمم للاستقدام">
+    <link rel="canonical" href="https://samma-sa.com/contact">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Structured Data - Contact Page Schema -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "ContactPage",
+        "name": "تواصل مع مكتب الأمم للاستقدام",
+        "description": "صفحة التواصل الرسمية لمكتب الأمم للاستقدام - احجز استشارة مجانية الآن",
+        "url": "https://samma-sa.com/contact",
+        "mainEntity": {
+            "@type": "LocalBusiness",
+            "name": "مكتب الأمم للاستقدام",
+            "telephone": "+966112345678",
+            "email": "info@samma-sa.com",
+            "address": {
+                "@type": "PostalAddress",
+                "streetAddress": "شارع الأمير محمد بن عبدالعزيز",
+                "addressLocality": "السليمانية",
+                "addressRegion": "الرياض",
+                "postalCode": "12211",
+                "addressCountry": "SA"
+            },
+            "openingHours": [
+                "Sa-Th 08:00-18:00"
+            ],
+            "geo": {
+                "@type": "GeoCoordinates",
+                "latitude": 24.635459,
+                "longitude": 46.694651
+            }
+        }
+    }
+    </script>
+    
+    <!-- External CSS -->
+    <link rel="stylesheet" href="styles/main.css">
+    
+    <!-- PWA Meta Tags -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#1e40af">
+</head>
+            --text-primary: #1f2937;
+            --text-secondary: #6b7280;
+            --background: #ffffff;
+            --background-light: #f8fafc;
+            --border-color: #e2e8f0;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 20px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background-color: var(--background);
+            direction: rtl;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            color: white;
+            padding: 1rem 0;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Amiri', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-color);
+        }
+
+        /* Main Content */
+        main {
+            margin-top: 80px;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            color: white;
+            padding: 4rem 0;
+            text-align: center;
+        }
+
+        .hero-title {
+            font-family: 'Amiri', serif;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.95;
+            margin-bottom: 2rem;
+        }
+
+        .quick-contact {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .quick-contact-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            color: white;
+            text-decoration: none;
+            padding: 1rem 1.5rem;
+            border-radius: 50px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s;
+        }
+
+        .quick-contact-btn:hover {
+            background: var(--accent-color);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+
+        /* Breadcrumb */
+        .breadcrumb {
+            background: var(--background-light);
+            padding: 1rem 0;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .breadcrumb a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        /* Contact Methods */
+        .contact-methods {
+            padding: 4rem 0;
+            background: var(--background-light);
+        }
+
+        .methods-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .method-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .method-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+        }
+
+        .method-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .method-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+            margin: 0 auto 1.5rem;
+        }
+
+        .method-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .method-details {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .method-action {
+            background: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+
+        .method-action:hover {
+            background: var(--accent-color);
+            transform: translateY(-2px);
+        }
+
+        /* Main Contact Section */
+        .main-contact {
+            padding: 4rem 0;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: start;
+        }
+
+        /* Booking Form */
+        .booking-form {
+            background: white;
+            border-radius: 15px;
+            padding: 2.5rem;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .form-title {
+            font-family: 'Amiri', serif;
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .form-input,
+        .form-select,
+        .form-textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: 'Cairo', sans-serif;
+            transition: border-color 0.3s;
+            background: white;
+            text-align: right;
+        }
+
+        .form-input:focus,
+        .form-select:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.1);
+        }
+
+        .form-textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .form-checkbox {
+            width: 20px;
+            height: 20px;
+            accent-color: var(--primary-color);
+        }
+
+        .submit-btn {
+            width: 100%;
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            color: white;
+            border: none;
+            padding: 1.2rem;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(30, 64, 175, 0.3);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Contact Info */
+        .contact-info {
+            background: var(--background-light);
+            border-radius: 15px;
+            padding: 2.5rem;
+        }
+
+        .info-title {
+            font-family: 'Amiri', serif;
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: white;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+        }
+
+        .info-content {
+            text-align: right;
+            margin-left: 1rem;
+        }
+
+        .info-label {
+            font-weight: 600;
+            color: var(--primary-color);
+            display: block;
+            margin-bottom: 0.3rem;
+        }
+
+        .info-value {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        .info-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        /* Map Section */
+        .map-section {
+            padding: 4rem 0;
+            background: var(--background-light);
+        }
+
+        .section-title {
+            font-family: 'Amiri', serif;
+            font-size: 2rem;
+            color: var(--primary-color);
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .map-container {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+            height: 400px;
+        }
+
+        .map-placeholder {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #f1f5f9, #e2e8f0);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            color: var(--text-secondary);
+        }
+
+        .map-placeholder-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        /* Live Chat Widget */
+        .chat-widget {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            z-index: 1000;
+        }
+
+        .chat-button {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--success-color), #059669);
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+            box-shadow: var(--shadow-lg);
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .chat-button:hover {
+            transform: scale(1.1);
+        }
+
+        .chat-window {
+            position: absolute;
+            bottom: 80px;
+            left: 0;
+            width: 350px;
+            height: 450px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: var(--shadow-lg);
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .chat-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            color: white;
+            padding: 1rem;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 1rem;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .chat-message {
+            max-width: 80%;
+            padding: 0.8rem 1rem;
+            border-radius: 15px;
+            word-wrap: break-word;
+        }
+
+        .chat-message.bot {
+            background: var(--background-light);
+            color: var(--text-primary);
+            align-self: flex-start;
+        }
+
+        .chat-message.user {
+            background: var(--primary-color);
+            color: white;
+            align-self: flex-end;
+        }
+
+        .chat-input-container {
+            padding: 1rem;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .chat-input {
+            flex: 1;
+            padding: 0.8rem;
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            font-size: 0.9rem;
+            text-align: right;
+        }
+
+        .chat-send {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Success/Error Messages */
+        .alert {
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            display: none;
+        }
+
+        .alert.success {
+            background: #d1fae5;
+            color: #065f46;
+            border: 1px solid #10b981;
+        }
+
+        .alert.error {
+            background: #fef2f2;
+            color: #991b1b;
+            border: 1px solid #ef4444;
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--text-primary);
+            color: white;
+            text-align: center;
+            padding: 3rem 0 2rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            font-family: 'Amiri', serif;
+            margin-bottom: 1rem;
+            color: var(--accent-color);
+        }
+
+        .contact-info-footer {
+            list-style: none;
+        }
+
+        .contact-info-footer li {
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+        }
+
+        .contact-info-footer i {
+            margin-left: 0.5rem;
+            color: var(--accent-color);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero-title {
+                font-size: 2rem;
+            }
+            
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .quick-contact {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .chat-window {
+                width: 300px;
+                height: 400px;
+            }
+            
+            .methods-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .method-card,
+        .booking-form,
+        .contact-info {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        /* Form Validation Styles */
+        .form-input.error,
+        .form-select.error,
+        .form-textarea.error {
+            border-color: var(--error-color);
+            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+        }
+
+        .error-message {
+            color: var(--error-color);
+            font-size: 0.9rem;
+            margin-top: 0.3rem;
+            display: none;
+        }
+
+        .form-input.error + .error-message,
+        .form-select.error + .error-message,
+        .form-textarea.error + .error-message {
+            display: block;
+        }
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <div class="logo">مكتب الأمم للاستقدام</div>
+                <ul class="nav-links">
+                    <li><a href="index.html">الرئيسية</a></li>
+                    <li><a href="services.html">خدماتنا</a></li>
+                    <li><a href="gallery.html">المعرض</a></li>
+                    <li><a href="about.html">من نحن</a></li>
+                    <li><a href="news.html">الأخبار</a></li>
+                    <li><a href="contact.html">تواصل معنا</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Breadcrumb -->
+    <section class="breadcrumb">
+        <div class="container">
+            <a href="index.html">الرئيسية</a> / تواصل معنا
+        </div>
+    </section>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="container">
+                <h1 class="hero-title">تواصل معنا</h1>
+                <p class="hero-subtitle">نحن هنا لخدمتكم على مدار الساعة - احجز استشارة مجانية الآن</p>
+                
+                <div class="quick-contact">
+                    <a href="tel:+966112345678" class="quick-contact-btn">
+                        📞 اتصل الآن
+                    </a>
+                    <a href="https://wa.me/966500851716" class="quick-contact-btn">
+                        💬 واتساب
+                    </a>
+                    <a href="/cdn-cgi/l/email-protection#20494e464f6053414d4d410d53410e434f4d" class="quick-contact-btn">
+                        ✉️ بريد إلكتروني
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Methods -->
+        <section class="contact-methods">
+            <div class="container">
+                <div class="methods-grid">
+                    <div class="method-card">
+                        <div class="method-icon">📞</div>
+                        <h3 class="method-title">اتصال مباشر</h3>
+                        <p class="method-details">
+                            تحدث مع فريق خدمة العملاء المتخصص لدينا مباشرة. نحن متاحون من السبت إلى الخميس من 8 صباحاً حتى 6 مساءً.
+                        </p>
+                        <a href="tel:+966112345678" class="method-action">اتصل الآن</a>
+                    </div>
+                    
+                    <div class="method-card">
+                        <div class="method-icon">💬</div>
+                        <h3 class="method-title">واتساب</h3>
+                        <p class="method-details">
+                            تواصل معنا عبر الواتساب للحصول على رد سريع ومباشر. يمكنك إرسال الأسئلة أو طلب الاستشارة في أي وقت.
+                        </p>
+                        <a href="https://wa.me/966500851716" class="method-action">أرسل رسالة</a>
+                    </div>
+                    
+                    <div class="method-card">
+                        <div class="method-icon">📧</div>
+                        <h3 class="method-title">البريد الإلكتروني</h3>
+                        <p class="method-details">
+                            أرسل استفسارك مفصلاً عبر البريد الإلكتروني وسنرد عليك خلال 24 ساعة كحد أقصى.
+                        </p>
+                        <a href="/cdn-cgi/l/email-protection#7b12151d143b081a16161a56081a55181416" class="method-action">أرسل بريد</a>
+                    </div>
+                    
+                    <div class="method-card">
+                        <div class="method-icon">🏢</div>
+                        <h3 class="method-title">زيارة المكتب</h3>
+                        <p class="method-details">
+                            زورنا في مقرنا الرئيسي في حي السليمانية بالرياض للحصول على استشارة شخصية مجانية.
+                        </p>
+                        <a href="#map" class="method-action">عرض الموقع</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Main Contact Section -->
+        <section class="main-contact">
+            <div class="container">
+                <div class="contact-grid">
+                    <!-- Booking Form -->
+                    <div class="booking-form">
+                        <h2 class="form-title">احجز استشارة مجانية</h2>
+                        
+                        <div class="alert success" id="successAlert">
+                            ✅ تم إرسال طلبك بنجاح! سنتواصل معك قريباً.
+                        </div>
+                        
+                        <div class="alert error" id="errorAlert">
+                            ❌ حدث خطأ في الإرسال. يرجى المحاولة مرة أخرى.
+                        </div>
+                        
+                        <form id="bookingForm">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label" for="firstName">الاسم الأول *</label>
+                                    <input type="text" id="firstName" name="firstName" class="form-input" required>
+                                    <div class="error-message">يرجى إدخال الاسم الأول</div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="form-label" for="lastName">اسم العائلة *</label>
+                                    <input type="text" id="lastName" name="lastName" class="form-input" required>
+                                    <div class="error-message">يرجى إدخال اسم العائلة</div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label" for="phone">رقم الجوال *</label>
+                                    <input type="tel" id="phone" name="phone" class="form-input" placeholder="05xxxxxxxx" required>
+                                    <div class="error-message">يرجى إدخال رقم جوال صحيح</div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="form-label" for="email">البريد الإلكتروني</label>
+                                    <input type="email" id="email" name="email" class="form-input">
+                                    <div class="error-message">يرجى إدخال بريد إلكتروني صحيح</div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label" for="serviceType">نوع الخدمة المطلوبة *</label>
+                                <select id="serviceType" name="serviceType" class="form-select" required>
+                                    <option value="">اختر نوع الخدمة</option>
+                                    <option value="domestic">عاملة منزلية</option>
+                                    <option value="driver">سائق</option>
+                                    <option value="nanny">مربية أطفال</option>
+                                    <option value="elderly">راعية كبار السن</option>
+                                    <option value="cook">طباخة</option>
+                                    <option value="consultation">استشارة فقط</option>
+                                </select>
+                                <div class="error-message">يرجى اختيار نوع الخدمة</div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label" for="nationality">الجنسية المفضلة</label>
+                                <select id="nationality" name="nationality" class="form-select">
+                                    <option value="">اختر الجنسية (اختياري)</option>
+                                    <option value="philippines">فلبينية</option>
+                                    <option value="indonesia">إندونيسية</option>
+                                    <option value="bangladesh">بنغلاديشية</option>
+                                    <option value="nepal">نيبالية</option>
+                                    <option value="sri-lanka">سريلانكية</option>
+                                    <option value="other">أخرى</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label" for="preferredDate">التاريخ المفضل للموعد</label>
+                                    <input type="date" id="preferredDate" name="preferredDate" class="form-input">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="form-label" for="preferredTime">الوقت المفضل</label>
+                                    <select id="preferredTime" name="preferredTime" class="form-select">
+                                        <option value="">اختر الوقت</option>
+                                        <option value="morning">صباحاً (8-12)</option>
+                                        <option value="afternoon">بعد الظهر (12-4)</option>
+                                        <option value="evening">مساءً (4-6)</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label" for="message">تفاصيل إضافية أو متطلبات خاصة</label>
+                                <textarea id="message" name="message" class="form-textarea" placeholder="اكتب أي تفاصيل إضافية أو متطلبات خاصة..."></textarea>
+                            </div>
+                            
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="terms" name="terms" class="form-checkbox" required>
+                                <label for="terms">أوافق على <a href="terms.html" style="color: var(--primary-color);">شروط الخدمة</a> و <a href="privacy.html" style="color: var(--primary-color);">سياسة الخصوصية</a> *</label>
+                            </div>
+                            
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="newsletter" name="newsletter" class="form-checkbox">
+                                <label for="newsletter">أرغب في تلقي النشرة الإخبارية والعروض الخاصة</label>
+                            </div>
+                            
+                            <button type="submit" class="submit-btn" id="submitBtn">
+                                <span id="submitText">إرسال الطلب</span>
+                                <span id="submitLoading" class="loading" style="display: none;"></span>
+                            </button>
+                        </form>
+                    </div>
+                    
+                    <!-- Contact Info -->
+                    <div class="contact-info">
+                        <h2 class="info-title">معلومات التواصل</h2>
+                        
+                        <div class="info-item">
+                            <div class="info-content">
+                                <span class="info-label">هاتف المكتب الرئيسي</span>
+                                <span class="info-value">+966 11 234 5678</span>
+                            </div>
+                            <div class="info-icon">📞</div>
+                        </div>
+                        
+                        <div class="info-item">
+                            <div class="info-content">
+                                <span class="info-label">الجوال والواتساب</span>
+                                <span class="info-value">+966 50 085 1716</span>
+                            </div>
+                            <div class="info-icon">📱</div>
+                        </div>
+                        
+                        <div class="info-item">
+                            <div class="info-content">
+                                <span class="info-label">البريد الإلكتروني</span>
+                                <span class="info-value"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="95fcfbf3fad5e6f4f8f8f4b8e6f4bbf6faf8">[email&#160;protected]</a></span>
+                            </div>
+                            <div class="info-icon">✉️</div>
+                        </div>
+                        
+                        <div class="info-item">
+                            <div class="info-content">
+                                <span class="info-label">العنوان</span>
+                                <span class="info-value">شارع الأمير محمد بن عبدالعزيز<br>حي السليمانية، الرياض 12211</span>
+                            </div>
+                            <div class="info-icon">📍</div>
+                        </div>
+                        
+                        <div class="info-item">
+                            <div class="info-content">
+                                <span class="info-label">ساعات العمل</span>
+                                <span class="info-value">السبت - الخميس: 8:00 ص - 6:00 م<br>الجمعة: مغلق</span>
+                            </div>
+                            <div class="info-icon">⏰</div>
+                        </div>
+                        
+                        <div class="info-item">
+                            <div class="info-content">
+                                <span class="info-label">خدمة العملاء</span>
+                                <span class="info-value">متاحة 24/7 عبر الواتساب</span>
+                            </div>
+                            <div class="info-icon">🎧</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Map Section -->
+        <section class="map-section" id="map">
+            <div class="container">
+                <h2 class="section-title">موقعنا على الخريطة</h2>
+                <div class="map-container">
+                    <div class="map-placeholder">
+                        <div class="map-placeholder-icon">🗺️</div>
+                        <h3>خريطة تفاعلية</h3>
+                        <p>مكتب الأمم للاستقدام - حي السليمانية، الرياض</p>
+                        <p style="margin-top: 1rem; font-size: 0.9rem;">
+                            <strong>الإحداثيات:</strong> 24.635459, 46.694651
+                        </p>
+                        <a href="https://maps.google.com/?q=24.635459,46.694651" target="_blank" 
+                           style="color: var(--primary-color); text-decoration: none; font-weight: 600; margin-top: 1rem; display: inline-block;">
+                            فتح في خرائط Google →
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>مكتب الأمم للاستقدام</h3>
+                    <p>المكتب الرائد في خدمات استقدام العمالة المنزلية والسائقين في الرياض، السعودية</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>معلومات التواصل</h3>
+                    <ul class="contact-info-footer">
+                        <li>📞 <strong>هاتف:</strong> +966 11 234 5678</li>
+                        <li>📱 <strong>جوال:</strong> +966 50 085 1716</li>
+                        <li>✉️ <strong>بريد إلكتروني:</strong> <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="bad3d4dcd5fac9dbd7d7db97c9db94d9d5d7">[email&#160;protected]</a></li>
+                        <li>📍 <strong>العنوان:</strong> الرياض، حي السليمانية</li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>روابط مهمة</h3>
+                    <ul class="contact-info-footer">
+                        <li><a href="services.html" style="color: white;">خدماتنا</a></li>
+                        <li><a href="gallery.html" style="color: white;">المعرض</a></li>
+                        <li><a href="privacy.html" style="color: white;">سياسة الخصوصية</a></li>
+                        <li><a href="terms.html" style="color: white;">شروط الخدمة</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div style="border-top: 1px solid #374151; padding-top: 1rem;">
+                <p>&copy; 2025 مكتب الأمم للاستقدام. جميع الحقوق محفوظة.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Live Chat Widget -->
+    <div class="chat-widget">
+        <button class="chat-button" id="chatButton" onclick="toggleChat()">💬</button>
+        <div class="chat-window" id="chatWindow">
+            <div class="chat-header">
+                <div>💬 الدردشة المباشرة</div>
+                <div style="font-size: 0.9rem; opacity: 0.9;">نحن هنا لمساعدتك</div>
+            </div>
+            <div class="chat-messages" id="chatMessages">
+                <div class="chat-message bot">
+                    مرحباً بك في مكتب الأمم للاستقدام! 👋<br>
+                    كيف يمكنني مساعدتك اليوم؟
+                </div>
+            </div>
+            <div class="chat-input-container">
+                <input type="text" class="chat-input" id="chatInput" placeholder="اكتب رسالتك..." onkeypress="handleChatKeyPress(event)">
+                <button class="chat-send" onclick="sendChatMessage()">➤</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- External JavaScript -->
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="js/main.js"></script>
+    
+    <!-- Service Worker Registration -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(registration => console.log('SW registered: ', registration))
+                    .catch(registrationError => console.log('SW registration failed: ', registrationError));
+            });
+        }
+        });
+
+        function validateForm() {
+            let isValid = true;
+            const requiredFields = ['firstName', 'lastName', 'phone', 'serviceType'];
+            
+            // Clear previous errors
+            document.querySelectorAll('.form-input, .form-select').forEach(field => {
+                field.classList.remove('error');
+            });
+            
+            // Validate required fields
+            requiredFields.forEach(fieldName => {
+                const field = document.getElementById(fieldName);
+                if (!field.value.trim()) {
+                    field.classList.add('error');
+                    isValid = false;
+                }
+            });
+            
+            // Validate phone number
+            const phone = document.getElementById('phone');
+            const phoneRegex = /^05[0-9]{8}$/;
+            if (phone.value && !phoneRegex.test(phone.value)) {
+                phone.classList.add('error');
+                isValid = false;
+            }
+            
+            // Validate email if provided
+            const email = document.getElementById('email');
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (email.value && !emailRegex.test(email.value)) {
+                email.classList.add('error');
+                isValid = false;
+            }
+            
+            // Validate terms acceptance
+            const terms = document.getElementById('terms');
+            if (!terms.checked) {
+                alert('يرجى الموافقة على شروط الخدمة وسياسة الخصوصية');
+                isValid = false;
+            }
+            
+            return isValid;
+        }
+
+        function submitForm() {
+            const submitBtn = document.getElementById('submitBtn');
+            const submitText = document.getElementById('submitText');
+            const submitLoading = document.getElementById('submitLoading');
+            const successAlert = document.getElementById('successAlert');
+            const errorAlert = document.getElementById('errorAlert');
+            
+            // Show loading state
+            submitBtn.disabled = true;
+            submitText.style.display = 'none';
+            submitLoading.style.display = 'inline-block';
+            
+            // Simulate form submission (in real implementation, send to backend)
+            setTimeout(() => {
+                // Reset button state
+                submitBtn.disabled = false;
+                submitText.style.display = 'inline';
+                submitLoading.style.display = 'none';
+                
+                // Show success message
+                successAlert.style.display = 'block';
+                errorAlert.style.display = 'none';
+                
+                // Reset form
+                document.getElementById('bookingForm').reset();
+                
+                // Hide success message after 5 seconds
+                setTimeout(() => {
+                    successAlert.style.display = 'none';
+                }, 5000);
+                
+                // Scroll to top of form
+                document.querySelector('.booking-form').scrollIntoView({ behavior: 'smooth' });
+            }, 2000);
+        }
+
+        // Live Chat Functionality
+        let chatOpen = false;
+        const chatResponses = [
+            "شكراً لتواصلك معنا! كيف يمكنني مساعدتك؟",
+            "يمكنك حجز موعد من خلال النموذج أعلاه أو الاتصال على 966112345678",
+            "نحن متخصصون في استقدام العمالة المنزلية من جميع الجنسيات",
+            "أسعارنا تنافسية وتشمل جميع الخدمات والضمانات",
+            "يمكنك زيارة مكتبنا في حي السليمانية بالرياض في أي وقت خلال ساعات العمل",
+            "سنتواصل معك خلال 24 ساعة من إرسال طلبك",
+            "هل تحتاج مساعدة في أي شيء آخر؟"
+        ];
+
+        function toggleChat() {
+            const chatWindow = document.getElementById('chatWindow');
+            const chatButton = document.getElementById('chatButton');
+            
+            chatOpen = !chatOpen;
+            chatWindow.style.display = chatOpen ? 'flex' : 'none';
+            chatButton.textContent = chatOpen ? '✕' : '💬';
+            
+            if (chatOpen) {
+                document.getElementById('chatInput').focus();
+            }
+        }
+
+        function sendChatMessage() {
+            const chatInput = document.getElementById('chatInput');
+            const message = chatInput.value.trim();
+            
+            if (message) {
+                addChatMessage(message, 'user');
+                chatInput.value = '';
+                
+                // Simulate bot response
+                setTimeout(() => {
+                    const randomResponse = chatResponses[Math.floor(Math.random() * chatResponses.length)];
+                    addChatMessage(randomResponse, 'bot');
+                }, 1000);
+            }
+        }
+
+        function addChatMessage(message, sender) {
+            const chatMessages = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `chat-message ${sender}`;
+            messageDiv.textContent = message;
+            
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function handleChatKeyPress(event) {
+            if (event.key === 'Enter') {
+                sendChatMessage();
+            }
+        }
+
+        // Set minimum date for appointment booking
+        document.addEventListener('DOMContentLoaded', function() {
+            const today = new Date();
+            const tomorrow = new Date(today);
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            
+            const dateInput = document.getElementById('preferredDate');
+            dateInput.min = tomorrow.toISOString().split('T')[0];
+            
+            // Smooth scrolling for navigation links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+        });
+
+        // Phone number formatting
+        document.getElementById('phone').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length > 10) {
+                value = value.slice(0, 10);
+            }
+            e.target.value = value;
+        });
+
+        // Real-time form validation
+        document.querySelectorAll('.form-input, .form-select').forEach(field => {
+            field.addEventListener('blur', function() {
+                if (this.hasAttribute('required') && !this.value.trim()) {
+                    this.classList.add('error');
+                } else {
+                    this.classList.remove('error');
+                }
+            });
+            
+            field.addEventListener('input', function() {
+                if (this.classList.contains('error') && this.value.trim()) {
+                    this.classList.remove('error');
+                }
+            });
+        });
+
+        // Copy contact info on click
+        document.querySelectorAll('.info-value').forEach(element => {
+            element.addEventListener('click', function() {
+                const text = this.textContent.trim();
+                if (text.includes('@') || text.includes('+966')) {
+                    navigator.clipboard.writeText(text).then(() => {
+                        // Show temporary feedback
+                        const originalText = this.textContent;
+                        this.textContent = 'تم النسخ ✓';
+                        this.style.color = 'var(--success-color)';
+                        
+                        setTimeout(() => {
+                            this.textContent = originalText;
+                            this.style.color = '';
+                        }, 2000);
+                    });
+                }
+            });
+    </script>
+</body>
+</html>

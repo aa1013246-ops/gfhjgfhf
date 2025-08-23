@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<script type="text/javascript">
+  // This is a CodeSandbox injection script that's used to
+  // add navigation and inspector functionality to the preview
+  (function () {
+    // 1) Get the <script> tag that's currently running:
+    var me = document.currentScript;
+
+    // 2) Create the blocking‐style <script> to load:
+    var script = document.createElement("script");
+    script.src = "https://codesandbox.io/p/preview-protocol.js";
+
+    // By default a dynamically‐inserted <script> is async=true.
+    // Turn async off to make it behave like a normal blocking <script>:
+    script.async = false;
+    // (Do NOT set defer.)
+
+    // 3) Insert it immediately after the current <script>:
+    me.parentNode.insertBefore(script, me);
+  })();
+
+  const isIFramePreview = window.top !== window.self;
+
+  // Only run this script in editor context
+  if (isIFramePreview) {
+    // This script is used to enable Chrome DevTools functionality
+    (function () {
+      var script = document.createElement("script");
+      script.src =
+        "https://codesandbox.io/p/chrome-devtool/protocol/index.js";
+
+      script.onload = () => {
+        const devtoolProtocol = window.chobitsu;
+        if (devtoolProtocol) {
+          window.addEventListener("message", (event) => {
+            const { type, data } = event.data;
+
+            if (type === "FROM_DEVTOOL") {
+              devtoolProtocol.sendRawMessage(data);
+            }
+          });
+
+          devtoolProtocol.setOnMessage((data) => {
+            if (data.includes('"id":"tmp')) {
+              return;
+            }
+
+            window.parent.postMessage({ type: "TO_DEVTOOL", data }, "*");
+          });
+
+          devtoolProtocol.sendRawMessage(
+            `{"id":5,"method":"Runtime.enable","params":{}}`
+          );
+        }        
+      }
+
+      (document.head || document.documentElement).prepend(script);
+    })();
+  }
+
+  if (typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ === "undefined") {
+    let nextID = 0;
+    let hook = (__REACT_DEVTOOLS_GLOBAL_HOOK__ = {
+      renderers: new Map(),
+      supportsFiber: true,
+      inject: (renderer) => {
+        const id = nextID++;
+        hook.renderers.set(id, renderer);
+        return id;
+      },
+      onScheduleFiberRoot() {},
+      onCommitFiberRoot() {},
+      onCommitFiberUnmount() {},
+    });
+  }
+
+  document.currentScript.remove();
+</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>سياسة الخصوصية - مكتب الأمم للاستقدام</title>
+    <meta name="description" content="سياسة الخصوصية الخاصة بمكتب الأمم للاستقدام وكيفية حماية بيانات العملاء">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://samma-sa.com/privacy.html">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Cairo', sans-serif;
+            line-height: 1.7;
+            color: #1f2937;
+            background: #ffffff;
+            direction: rtl;
+            text-align: right;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem 20px;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%);
+            color: white;
+            padding: 4rem 0 2rem;
+            text-align: center;
+        }
+        
+        .logo {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        
+        .page-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            color: #1e40af;
+        }
+        
+        .content {
+            padding: 3rem 0;
+        }
+        
+        .section {
+            margin-bottom: 3rem;
+        }
+        
+        .section h2 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #1e40af;
+            border-bottom: 2px solid #e5e7eb;
+            padding-bottom: 0.5rem;
+        }
+        
+        .section h3 {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin: 2rem 0 1rem;
+            color: #374151;
+        }
+        
+        .section p {
+            margin-bottom: 1rem;
+            color: #4b5563;
+            line-height: 1.8;
+        }
+        
+        .section ul {
+            margin: 1rem 0 1rem 2rem;
+        }
+        
+        .section li {
+            margin-bottom: 0.5rem;
+            color: #4b5563;
+        }
+        
+        .contact-info {
+            background: #f9fafb;
+            padding: 2rem;
+            border-radius: 8px;
+            border-right: 4px solid #1e40af;
+            margin: 2rem 0;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background: #1e40af;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin: 1rem 0;
+        }
+        
+        .btn:hover {
+            background: #1e3a8a;
+            transform: translateY(-2px);
+        }
+        
+        .footer {
+            background: #1e3a8a;
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+        
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 2rem;
+            }
+            
+            .section h2 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="logo">مكتب الأمم للاستقدام</div>
+        </div>
+    </header>
+
+    <main class="container">
+        <h1 class="page-title">سياسة الخصوصية</h1>
+        
+        <div class="content">
+            <div class="section">
+                <p><strong>آخر تحديث:</strong> 23 يناير 2025</p>
+                <p>يلتزم مكتب الأمم للاستقدام بحماية خصوصية عملائنا الكرام والحفاظ على سرية معلوماتهم الشخصية. تشرح هذه السياسة كيفية جمع واستخدام وحماية المعلومات التي نحصل عليها من خلال موقعنا الإلكتروني وخدماتنا.</p>
+            </div>
+
+            <div class="section">
+                <h2>1. المعلومات التي نجمعها</h2>
+                
+                <h3>المعلومات الشخصية:</h3>
+                <ul>
+                    <li>الاسم الكامل ومعلومات الهوية</li>
+                    <li>أرقام الهواتف وعناوين البريد الإلكتروني</li>
+                    <li>العنوان السكني ومعلومات الإقامة</li>
+                    <li>معلومات العمل والراتب (عند الحاجة)</li>
+                    <li>تفاصيل العمالة المطلوبة ومتطلبات الخدمة</li>
+                </ul>
+
+                <h3>المعلومات التقنية:</h3>
+                <ul>
+                    <li>عنوان IP والموقع الجغرافي التقريبي</li>
+                    <li>نوع المتصفح ونظام التشغيل</li>
+                    <li>أوقات الزيارة والصفحات المستعرضة</li>
+                    <li>ملفات تعريف الارتباط (الكوكيز)</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h2>2. كيفية استخدام المعلومات</h2>
+                <p>نستخدم المعلومات المجمعة للأغراض التالية:</p>
+                <ul>
+                    <li>تقديم خدمات الاستقدام وإتمام الطلبات</li>
+                    <li>التواصل مع العملاء ومتابعة حالة الطلبات</li>
+                    <li>تحسين جودة خدماتنا وتطوير الموقع الإلكتروني</li>
+                    <li>الالتزام بالمتطلبات القانونية والتنظيمية</li>
+                    <li>إرسال التحديثات والإشعارات المهمة</li>
+                    <li>منع الاحتيال وضمان أمان المعاملات</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h2>3. مشاركة المعلومات</h2>
+                <p>لا نبيع أو نؤجر معلوماتكم الشخصية لأطراف ثالثة. قد نشارك المعلومات في الحالات التالية:</p>
+                <ul>
+                    <li>مع الجهات الحكومية المختصة (وزارة الموارد البشرية، الجوازات، إلخ)</li>
+                    <li>مع شركائنا المعتمدين في دول الاستقدام</li>
+                    <li>مع مقدمي الخدمات التقنية (بشروط سرية صارمة)</li>
+                    <li>عند وجود أمر قضائي أو متطلب قانوني</li>
+                    <li>لحماية حقوق وأمان مكتبنا وعملائنا</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h2>4. حماية المعلومات</h2>
+                <p>نطبق إجراءات أمنية متقدمة لحماية معلوماتكم:</p>
+                <ul>
+                    <li>تشفير البيانات أثناء النقل والتخزين</li>
+                    <li>جدران حماية وأنظمة كشف التسلل</li>
+                    <li>محدودية الوصول للمعلومات (فقط للموظفين المخولين)</li>
+                    <li>نسخ احتياطية منتظمة ومشفرة</li>
+                    <li>تحديث دوري لأنظمة الأمان</li>
+                    <li>تدريب الموظفين على أهمية سرية المعلومات</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h2>5. ملفات تعريف الارتباط (الكوكيز)</h2>
+                <p>يستخدم موقعنا ملفات تعريف الارتباط لتحسين تجربة المستخدم:</p>
+                <ul>
+                    <li><strong>الكوكيز الأساسية:</strong> ضرورية لتشغيل الموقع</li>
+                    <li><strong>كوكيز التحليل:</strong> لفهم سلوك الزوار وتحسين الموقع</li>
+                    <li><strong>كوكيز التفضيلات:</strong> لحفظ إعداداتكم الشخصية</li>
+                </ul>
+                <p>يمكنكم إدارة إعدادات الكوكيز من متصفحكم أو رفضها، لكن قد يؤثر ذلك على وظائف الموقع.</p>
+            </div>
+
+            <div class="section">
+                <h2>6. حقوقكم في البيانات</h2>
+                <p>لديكم الحقوق التالية فيما يتعلق ببياناتكم الشخصية:</p>
+                <ul>
+                    <li><strong>الوصول:</strong> طلب نسخة من بياناتكم المحفوظة لدينا</li>
+                    <li><strong>التصحيح:</strong> تحديث أو تصحيح المعلومات غير الصحيحة</li>
+                    <li><strong>الحذف:</strong> طلب حذف بياناتكم (وفقاً للقوانين النافذة)</li>
+                    <li><strong>النقل:</strong> الحصول على بياناتكم بصيغة قابلة للقراءة</li>
+                    <li><strong>الاعتراض:</strong> رفض استخدام بياناتكم لأغراض معينة</li>
+                    <li><strong>التقييد:</strong> طلب تقييد معالجة بياناتكم</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h2>7. الاحتفاظ بالبيانات</h2>
+                <p>نحتفظ بمعلوماتكم للفترات التالية:</p>
+                <ul>
+                    <li>معلومات العملاء النشطين: طوال فترة الخدمة + 7 سنوات</li>
+                    <li>السجلات المحاسبية: 10 سنوات (حسب القانون السعودي)</li>
+                    <li>معلومات الموقع الإلكتروني: 3 سنوات</li>
+                    <li>المراسلات والشكاوى: 5 سنوات</li>
+                </ul>
+                <p>بعد انتهاء فترات الاحتفاظ، يتم حذف البيانات بشكل آمن ونهائي.</p>
+            </div>
+
+            <div class="section">
+                <h2>8. المتطلبات القانونية</h2>
+                <p>نلتزم بجميع القوانين السعودية ذات الصلة:</p>
+                <ul>
+                    <li>نظام مكافحة الجرائم المعلوماتية</li>
+                    <li>نظام حماية البيانات الشخصية</li>
+                    <li>لوائح وزارة الموارد البشرية والتنمية الاجتماعية</li>
+                    <li>أنظمة هيئة الاتصالات وتقنية المعلومات</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h2>9. التحديثات على السياسة</h2>
+                <p>قد نقوم بتحديث هذه السياسة من وقت لآخر. سنقوم بإشعاركم بأي تغييرات جوهرية عبر:</p>
+                <ul>
+                    <li>نشر النسخة المحدثة على موقعنا الإلكتروني</li>
+                    <li>إرسال إشعار عبر البريد الإلكتروني أو الرسائل النصية</li>
+                    <li>الإعلان في مكتبنا ومنصاتنا الاجتماعية</li>
+                </ul>
+                <p>استمراركم في استخدام خدماتنا يعني موافقتكم على السياسة المحدثة.</p>
+            </div>
+
+            <div class="contact-info">
+                <h2>10. التواصل معنا</h2>
+                <p>لأي استفسارات حول سياسة الخصوصية أو لممارسة حقوقكم في البيانات، يرجى التواصل معنا:</p>
+                <ul>
+                    <li><strong>الهاتف:</strong> <a href="tel:+966500851716" style="color: #1e40af;">+966 50 085 1716</a></li>
+                    <li><strong>البريد الإلكتروني:</strong> <a href="/cdn-cgi/l/email-protection#c7b7b5aeb1a6a4be87b4a6aaaaa6eab4a6e9a4a8aa" style="color: #1e40af;"><span class="__cf_email__" data-cfemail="3747455e4156544e7744565a5a561a44561954585a">[email&#160;protected]</span></a></li>
+                    <li><strong>العنوان:</strong> حي السليمانية، الرياض، المملكة العربية السعودية</li>
+                    <li><strong>واتساب:</strong> <a href="https://wa.me/966500851716" style="color: #1e40af;">+966 50 085 1716</a></li>
+                </ul>
+                <p><strong>مسؤول حماية البيانات:</strong> إدارة مكتب الأمم للاستقدام</p>
+                <p><strong>ساعات العمل:</strong> السبت - الخميس: 8:00 ص - 10:00 م</p>
+            </div>
+
+            <div style="text-align: center; margin: 3rem 0;">
+                <a href="/" class="btn">العودة للصفحة الرئيسية</a>
+                <a href="/terms.html" class="btn" style="background: #6b7280;">شروط الخدمة</a>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 مكتب الأمم للاستقدام. جميع الحقوق محفوظة.</p>
+            <p>مرخص من وزارة الموارد البشرية والتنمية الاجتماعية</p>
+        </div>
+    </footer>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script></body>
+</html>

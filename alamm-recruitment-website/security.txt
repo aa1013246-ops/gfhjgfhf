@@ -1,0 +1,42 @@
+# Security Contact Information for samma-sa.com
+# Al-Umam Recruitment Office Security Policy
+
+Contact: mailto:security@samma-sa.com
+Contact: tel:+966500851716
+Expires: 2025-12-31T23:59:59Z
+Encryption: https://samma-sa.com/pgp-key.txt
+Acknowledgments: https://samma-sa.com/security/hall-of-fame
+Preferred-Languages: ar, en
+Canonical: https://samma-sa.com/.well-known/security.txt
+Policy: https://samma-sa.com/security-policy
+
+# Reporting Guidelines
+# - Please report security vulnerabilities responsibly
+# - Include detailed information about the vulnerability
+# - Allow reasonable time for remediation before disclosure
+# - Arabic and English reports are welcome
+
+# Scope
+# This security policy applies to:
+# - samma-sa.com and all subdomains
+# - Mobile applications (if any)
+# - API endpoints
+
+# Out of Scope
+# - Third-party services and integrations
+# - Social engineering attacks
+# - Physical security issues
+
+# Response Time
+# - Critical: 24 hours
+# - High: 48 hours  
+# - Medium: 1 week
+# - Low: 2 weeks
+
+# Contact Information
+# Primary: security@samma-sa.com
+# Backup: info@samma-sa.com
+# Phone: +966 50 085 1716
+# Business Hours: 8 AM - 10 PM (GMT+3)
+
+# Thank you for helping keep our users safe!
