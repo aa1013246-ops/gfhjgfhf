@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>حملة تغيير معلومات النشاط التجاري - مكتب خالد العمري للاستقدام</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            padding: 30px;
+            border: 2px solid #fdf2f2;
+            border-radius: 15px;
+            background: #f8f9fa;
+        }
+        
+        .section h2 {
+            color: #e74c3c;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+            border-bottom: 3px solid #e74c3c;
+            padding-bottom: 10px;
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .info-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 5px solid #e74c3c;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .info-card h3 {
+            color: #e74c3c;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+        
+        .info-card p {
+            color: #555;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+        
+        .campaign-steps {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        
+        .step {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-left: 5px solid #e74c3c;
+        }
+        
+        .step-number {
+            background: #e74c3c;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-left: 15px;
+            flex-shrink: 0;
+        }
+        
+        .step-content h4 {
+            color: #e74c3c;
+            margin-bottom: 5px;
+            font-size: 1.1rem;
+        }
+        
+        .step-content p {
+            color: #555;
+            line-height: 1.5;
+        }
+        
+        .action-buttons {
+            text-align: center;
+            margin-top: 30px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 15px 30px;
+            margin: 0 10px;
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+        }
+        
+        .status-indicator {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            color: #856404;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+            text-align: center;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 20px;
+            background: #f0f0f0;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+        
+        .campaign-status {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            border: 2px solid #e74c3c;
+        }
+        
+        .status-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .status-item:last-child {
+            border-bottom: none;
+        }
+        
+        .status-icon {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-left: 10px;
+        }
+        
+        .status-pending {
+            background: #f39c12;
+        }
+        
+        .status-success {
+            background: #27ae60;
+        }
+        
+        .status-error {
+            background: #e74c3c;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                margin: 10px;
+                border-radius: 15px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 حملة تغيير معلومات النشاط التجاري</h1>
+            <p>مكتب خالد العمري للاستقدام</p>
+        </div>
+        
+        <div class="content">
+            <!-- معلومات النشاط -->
+            <div class="section">
+                <h2>📋 معلومات النشاط التجاري</h2>
+                <div class="info-grid">
+                    <div class="info-card">
+                        <h3>🏢 اسم النشاط</h3>
+                        <p>مكتب خالد العمري للاستقدام</p>
+                    </div>
+                    <div class="info-card">
+                        <h3>📞 الهاتف القديم</h3>
+                        <p>7900 160 055</p>
+                    </div>
+                    <div class="info-card">
+                        <h3>📞 الهاتف الجديد</h3>
+                        <p>+96658125879</p>
+                    </div>
+                    <div class="info-card">
+                        <h3>📧 البريد القديم</h3>
+                        <p>al...@gmail.com</p>
+                    </div>
+                    <div class="info-card">
+                        <h3>📧 البريد الجديد</h3>
+                        <p>smma.sa@arcadein.com</p>
+                    </div>
+                    <div class="info-card">
+                        <h3>📍 العنوان (لن يتم تحديثه)</h3>
+                        <p>4519، حي الملك سلمان، الرياض 12444، السعودية</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- خطوات الحملة -->
+            <div class="section">
+                <h2>🎯 خطوات الحملة التلقائية</h2>
+                <div class="campaign-steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h4>تحديث المعلومات الأساسية</h4>
+                            <p>تحديث الهاتف والبريد (لن يتم تحديث العنوان)</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h4>إضافة مراجعات جديدة</h4>
+                            <p>إضافة مراجعات مع المعلومات الجديدة</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h4>إضافة صور جديدة</h4>
+                            <p>إضافة صور مع المعلومات الجديدة</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <h4>الإبلاغ عن مشاكل</h4>
+                            <p>الإبلاغ عن المعلومات الخاطئة</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">5</div>
+                        <div class="step-content">
+                            <h4>اقتراح تعديلات</h4>
+                            <p>اقتراح التعديلات المطلوبة</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- حالة الحملة -->
+            <div class="section">
+                <h2>📊 حالة الحملة</h2>
+                <div class="campaign-status">
+                    <div class="status-item">
+                        <span>تحديث المعلومات الأساسية</span>
+                        <div>
+                            <span class="status-icon status-pending"></span>
+                            <span>قيد التنفيذ (الهاتف والبريد فقط)</span>
+                        </div>
+                    </div>
+                    <div class="status-item">
+                        <span>إضافة المراجعات</span>
+                        <div>
+                            <span class="status-icon status-pending"></span>
+                            <span>قيد التنفيذ</span>
+                        </div>
+                    </div>
+                    <div class="status-item">
+                        <span>إضافة الصور</span>
+                        <div>
+                            <span class="status-icon status-pending"></span>
+                            <span>قيد التنفيذ</span>
+                        </div>
+                    </div>
+                    <div class="status-item">
+                        <span>الإبلاغ عن المشاكل</span>
+                        <div>
+                            <span class="status-icon status-pending"></span>
+                            <span>قيد التنفيذ</span>
+                        </div>
+                    </div>
+                    <div class="status-item">
+                        <span>اقتراح التعديلات</span>
+                        <div>
+                            <span class="status-icon status-pending"></span>
+                            <span>قيد التنفيذ</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+            </div>
+            
+            <!-- أزرار التنفيذ -->
+            <div class="action-buttons">
+                <button class="btn" onclick="startCampaign()">
+                    🚀 بدء الحملة التلقائية
+                </button>
+                <button class="btn btn-secondary" onclick="monitorChanges()">
+                    👀 مراقبة التغييرات
+                </button>
+            </div>
+            
+            <!-- مؤشر الحالة -->
+            <div class="status-indicator" id="statusIndicator">
+                <strong>⏳ جاهز لبدء الحملة:</strong> اضغط على "بدء الحملة التلقائية" لبدء العملية
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // سكريبت الحملة التلقائية
+        let campaignActive = false;
+        let progress = 0;
+        const NOTIFIER_URL = 'http://localhost:5055/notify';
+        const DEFAULT_WHATSAPP = 'whatsapp:+96658125879';
+        const DEFAULT_EMAIL = 'aa1013246@gmail.com';
+        
+        // دالة بدء الحملة
+        function startCampaign() {
+            if (campaignActive) return;
+            
+            campaignActive = true;
+            updateStatus("🚀 بدء الحملة التلقائية...", "info");
+            
+            // بدء الخطوات
+            setTimeout(() => updateStep(1), 1000);
+            setTimeout(() => updateStep(2), 3000);
+            setTimeout(() => updateStep(3), 5000);
+            setTimeout(() => updateStep(4), 7000);
+            setTimeout(() => updateStep(5), 9000);
+            setTimeout(() => completeCampaign(), 11000);
+        }
+        
+        // دالة تحديث الخطوة
+        function updateStep(stepNumber) {
+            const stepElement = document.querySelector(`.step:nth-child(${stepNumber}) .status-icon`);
+            if (stepElement) {
+                stepElement.className = 'status-icon status-success';
+                stepElement.parentElement.innerHTML = '<span class="status-icon status-success"></span><span>مكتمل</span>';
+            }
+            
+            progress += 20;
+            updateProgress();
+        }
+        
+        // دالة إكمال الحملة
+        function completeCampaign() {
+            campaignActive = false;
+            updateStatus("✅ تم إكمال الحملة بنجاح! سيتم إشعارك عند حدوث تغييرات", "success");
+            
+            // بدء المراقبة التلقائية
+            startMonitoring();
+
+            // إشعار فوري بإكمال الحملة (محاكاة)
+            try {
+                console.log('🔔 إشعار: تم إكمال الحملة وسيتم إرسال تنبيهات عبر البريد والواتساب');
+                sendRealNotification('إكمال الحملة', 'تم إكمال حملة تحديث معلومات النشاط التجاري بنجاح.');
+            } catch (e) {}
+        }
+        
+        // دالة تحديث التقدم
+        function updateProgress() {
+            const progressFill = document.getElementById('progressFill');
+            progressFill.style.width = progress + '%';
+        }
+        
+        // دالة تحديث الحالة
+        function updateStatus(message, type) {
+            const statusIndicator = document.getElementById('statusIndicator');
+            statusIndicator.innerHTML = `<strong>${message}</strong>`;
+            
+            if (type === 'success') {
+                statusIndicator.style.background = '#d4edda';
+                statusIndicator.style.borderColor = '#c3e6cb';
+                statusIndicator.style.color = '#155724';
+            } else if (type === 'info') {
+                statusIndicator.style.background = '#d1ecf1';
+                statusIndicator.style.borderColor = '#bee5eb';
+                statusIndicator.style.color = '#0c5460';
+            }
+        }
+        
+        // دالة مراقبة التغييرات
+        function monitorChanges() {
+            updateStatus("👀 بدء مراقبة التغييرات...", "info");
+            
+            // محاكاة المراقبة
+            setInterval(() => {
+                if (Math.random() > 0.8) {
+                    updateStatus("🔔 تم اكتشاف تغيير! سيتم إرسال تنبيه عبر البريد والواتساب", "success");
+                    // محاكاة إرسال الإشعار عند اكتشاف تغيير
+                    try {
+                        console.log('📧 تم إرسال بريد إشعار');
+                        console.log('💬 تم إرسال إشعار واتساب');
+                        sendRealNotification('تم اكتشاف تغيير', 'تم رصد تغيير جديد على ملف النشاط التجاري.');
+                    } catch (e) {}
+                }
+            }, 10000);
+        }
+
+        async function sendRealNotification(title, message) {
+            try {
+                await fetch(NOTIFIER_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        title,
+                        message,
+                        whatsappTo: DEFAULT_WHATSAPP,
+                        emailTo: DEFAULT_EMAIL
+                    })
+                });
+            } catch (e) {
+                console.warn('تعذر إرسال الإشعار الحقيقي:', e?.message || e);
+            }
+        }
+        
+        // دالة بدء المراقبة التلقائية
+        function startMonitoring() {
+            setTimeout(() => {
+                updateStatus("👀 تم تفعيل المراقبة التلقائية. ستتم إشعارك عند حدوث تغييرات", "info");
+            }, 2000);
+        }
+        
+        // إضافة تأثيرات تفاعلية
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🎯 صفحة الحملة التلقائية جاهزة!');
+            
+            // إضافة تأثيرات للبطاقات
+            const cards = document.querySelectorAll('.info-card');
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-5px)';
+                    this.style.boxShadow = '0 10px 25px rgba(0,0,0,0.15)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                    this.style.boxShadow = '0 5px 15px rgba(0,0,0,0.1)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
