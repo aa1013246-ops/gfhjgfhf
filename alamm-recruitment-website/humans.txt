@@ -1,0 +1,57 @@
+/* TEAM */
+    Owner: Al-Umam Recruitment Office
+    Contact: info [at] samma-sa.com
+    Location: Riyadh, Saudi Arabia
+    Phone: +966 50 085 1716
+
+/* SITE */
+    Last update: 2025/01/23
+    Language: Arabic / العربية
+    Doctype: HTML5
+    Standards: HTML5, CSS3, JavaScript ES6+
+    Components: Progressive Web App (PWA)
+    Software: VSCode, GitHub
+
+/* TECHNOLOGIES */
+    Frontend: HTML5, CSS3, JavaScript
+    Fonts: Google Fonts (Cairo, Amiri)
+    Optimization: Gzip compression, Image optimization
+    Security: CSP, HTTPS, XSS Protection
+    Analytics: Google Analytics
+    
+/* THANKS */
+    Google Fonts
+    Schema.org
+    W3C Validators
+    Mozilla Developer Network
+    
+/* COMPANY INFO */
+    Company: Al-Umam Recruitment Office / مكتب الأمم للاستقدام
+    Established: 2010
+    License: Ministry of Human Resources and Social Development
+    Services: Domestic workers recruitment, Drivers recruitment
+    Location: Sulaimaniyah District, Riyadh, Saudi Arabia
+    Website: samma-sa.com
+    
+/* SEO & VERIFICATION */
+    Google Search Console: Verified
+    Google My Business: Claimed
+    Schema.org: Implemented
+    Open Graph: Implemented
+    Twitter Cards: Implemented
+    Sitemap: /sitemap.xml
+    Robots: /robots.txt
+
+                            _
+                        .-'` `}
+                _./)   /       }
+              .'o   \ |       }
+              '.___.'`.\    {`
+              /`\_/  , `.    }
+              \=' .-'   _`\  {
+               `'`;/      `,  }
+                  _\       ;  }
+                 /__`;-...'`-.{
+
+            مكتب الأمم للاستقدام
+        Al-Umam Recruitment Office

@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<script type="text/javascript">
+  // This is a CodeSandbox injection script that's used to
+  // add navigation and inspector functionality to the preview
+  (function () {
+    // 1) Get the <script> tag that's currently running:
+    var me = document.currentScript;
+
+    // 2) Create the blocking‐style <script> to load:
+    var script = document.createElement("script");
+    script.src = "https://codesandbox.io/p/preview-protocol.js";
+
+    // By default a dynamically‐inserted <script> is async=true.
+    // Turn async off to make it behave like a normal blocking <script>:
+    script.async = false;
+    // (Do NOT set defer.)
+
+    // 3) Insert it immediately after the current <script>:
+    me.parentNode.insertBefore(script, me);
+  })();
+
+  const isIFramePreview = window.top !== window.self;
+
+  // Only run this script in editor context
+  if (isIFramePreview) {
+    // This script is used to enable Chrome DevTools functionality
+    (function () {
+      var script = document.createElement("script");
+      script.src =
+        "https://codesandbox.io/p/chrome-devtool/protocol/index.js";
+
+      script.onload = () => {
+        const devtoolProtocol = window.chobitsu;
+        if (devtoolProtocol) {
+          window.addEventListener("message", (event) => {
+            const { type, data } = event.data;
+
+            if (type === "FROM_DEVTOOL") {
+              devtoolProtocol.sendRawMessage(data);
+            }
+          });
+
+          devtoolProtocol.setOnMessage((data) => {
+            if (data.includes('"id":"tmp')) {
+              return;
+            }
+
+            window.parent.postMessage({ type: "TO_DEVTOOL", data }, "*");
+          });
+
+          devtoolProtocol.sendRawMessage(
+            `{"id":5,"method":"Runtime.enable","params":{}}`
+          );
+        }        
+      }
+
+      (document.head || document.documentElement).prepend(script);
+    })();
+  }
+
+  if (typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ === "undefined") {
+    let nextID = 0;
+    let hook = (__REACT_DEVTOOLS_GLOBAL_HOOK__ = {
+      renderers: new Map(),
+      supportsFiber: true,
+      inject: (renderer) => {
+        const id = nextID++;
+        hook.renderers.set(id, renderer);
+        return id;
+      },
+      onScheduleFiberRoot() {},
+      onCommitFiberRoot() {},
+      onCommitFiberUnmount() {},
+    });
+  }
+
+  document.currentScript.remove();
+</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>شروط الخدمة - مكتب الأمم للاستقدام</title>
+    <meta name="description" content="شروط وأحكام الخدمة الخاصة بمكتب الأمم للاستقدام وحقوق والتزامات العملاء">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://samma-sa.com/terms.html">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Cairo', sans-serif;
+            line-height: 1.7;
+            color: #1f2937;
+            background: #ffffff;
+            direction: rtl;
+            text-align: right;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem 20px;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%);
+            color: white;
+            padding: 4rem 0 2rem;
+            text-align: center;
+        }
+        
+        .logo {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        
+        .page-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            color: #1e40af;
+        }
+        
+        .content {
+            padding: 3rem 0;
+        }
+        
+        .section {
+            margin-bottom: 3rem;
+        }
+        
+        .section h2 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #1e40af;
+            border-bottom: 2px solid #e5e7eb;
+            padding-bottom: 0.5rem;
+        }
+        
+        .section h3 {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin: 2rem 0 1rem;
+            color: #374151;
+        }
+        
+        .section p {
+            margin-bottom: 1rem;
+            color: #4b5563;
+            line-height: 1.8;
+        }
+        
+        .section ul {
+            margin: 1rem 0 1rem 2rem;
+        }
+        
+        .section li {
+            margin-bottom: 0.5rem;
+            color: #4b5563;
+        }
+        
+        .highlight-box {
+            background: #fef3c7;
+            border: 1px solid #f59e0b;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .warning-box {
+            background: #fee2e2;
+            border: 1px solid #ef4444;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .info-box {
+            background: #dbeafe;
+            border: 1px solid #3b82f6;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .contact-info {
+            background: #f9fafb;
+            padding: 2rem;
+            border-radius: 8px;
+            border-right: 4px solid #1e40af;
+            margin: 2rem 0;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background: #1e40af;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin: 1rem 0;
+        }
+        
+        .btn:hover {
+            background: #1e3a8a;
+            transform: translateY(-2px);
+        }
+        
+        .footer {
+            background: #1e3a8a;
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+        }
+        
+        th, td {
+            border: 1px solid #e5e7eb;
+            padding: 1rem;
+            text-align: right;
+        }
+        
+        th {
+            background: #f3f4f6;
+            font-weight: 600;
+            color: #1f2937;
+        }
+        
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 2rem;
+            }
+            
+            .section h2 {
+                font-size: 1.5rem;
+            }
+            
+            table {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="logo">مكتب الأمم للاستقدام</div>
+        </div>
+    </header>
+
+    <main class="container">
+        <h1 class="page-title">شروط وأحكام الخدمة</h1>
+        
+        <div class="content">
+            <div class="section">
+                <p><strong>آخر تحديث:</strong> 23 يناير 2025</p>
+                <p><strong>تاريخ السريان:</strong> من تاريخ التوقيع على العقد</p>
+                
+                <div class="info-box">
+                    <p><strong>مهم:</strong> يرجى قراءة هذه الشروط والأحكام بعناية قبل استخدام خدماتنا. باستخدام خدمات مكتب الأمم للاستقدام، فإنكم توافقون على الالتزام بهذه الشروط والأحكام.</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>1. التعريفات</h2>
+                <ul>
+                    <li><strong>المكتب:</strong> مكتب الأمم للاستقدام، المرخص من وزارة الموارد البشرية والتنمية الاجتماعية</li>
+                    <li><strong>العميل:</strong> أي شخص طبيعي أو اعتباري يطلب خدمات الاستقدام</li>
+                    <li><strong>العامل:</strong> الشخص المراد استقدامه للعمل لدى العميل</li>
+                    <li><strong>الخدمة:</strong> جميع خدمات الاستقدام التي يقدمها المكتب</li>
+                    <li><strong>العقد:</strong> الاتفاقية المبرمة بين المكتب والعميل</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h2>2. نطاق الخدمات</h2>
+                <p>يقدم مكتب الأمم للاستقدام الخدمات التالية:</p>
+                <ul>
+                    <li>استقدام العمالة المنزلية (خادمات، طباخات، منظفات)</li>
+                    <li>استقدام مربيات الأطفال</li>
+                    <li>استقدام عاملات رعاية كبار السن</li>
+                    <li>استقدام السائقين الشخصيين</li>
+                    <li>استقدام العمالة المتخصصة حسب الطلب</li>
+                    <li>الاستشارات والمتابعة القانونية</li>
+                    <li>خدمات ما بعد الوصول (فترة محدودة)</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h2>3. شروط التعاقد</h2>
+                
+                <h3>3.1 شروط العميل:</h3>
+                <ul>
+                    <li>أن يكون سعودي الجنسية أو مقيم نظامي</li>
+                    <li>تقديم جميع المستندات المطلوبة كاملة وصحيحة</li>
+                    <li>سداد المبالغ المستحقة في المواعيد المحددة</li>
+                    <li>توفير السكن المناسب والآمن للعامل</li>
+                    <li>الالتزام بأنظمة العمل السعودية</li>
+                </ul>
+
+                <h3>3.2 المستندات المطلوبة:</h3>
+                <ul>
+                    <li>صورة من الهوية الوطنية أو الإقامة سارية المفعول</li>
+                    <li>صورة من عقد الإيجار أو صك الملكية</li>
+                    <li>تعريف بالراتب (للموظفين) أو السجل التجاري (للتجار)</li>
+                    <li>تعهد بالالتزام بالأنظمة واللوائح</li>
+                    <li>أي مستندات إضافية حسب نوع العمالة</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h2>4. الأسعار والدفع</h2>
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th>نوع العمالة</th>
+                            <th>السعر (ريال سعودي)</th>
+                            <th>مدة الإنجاز</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>خادمة فلبينية</td>
+                            <td>8,500 - 10,000</td>
+                            <td>45-60 يوم</td>
+                        </tr>
+                        <tr>
+                            <td>خادمة إندونيسية</td>
+                            <td>8,000 - 9,500</td>
+                            <td>60-75 يوم</td>
+                        </tr>
+                        <tr>
+                            <td>سائق بنغلاديشي</td>
+                            <td>10,000 - 12,000</td>
+                            <td>60-90 يوم</td>
+                        </tr>
+                        <tr>
+                            <td>مربية أطفال</td>
+                            <td>9,000 - 11,000</td>
+                            <td>45-70 يوم</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="highlight-box">
+                    <p><strong>تنبيه:</strong> الأسعار المذكورة شاملة جميع الرسوم الحكومية والخدمات، وقد تتغير حسب الظروف والمتطلبات الخاصة.</p>
+                </div>
+
+                <h3>4.1 شروط الدفع:</h3>
+                <ul>
+                    <li>دفعة أولى: 50% عند التوقيع على العقد</li>
+                    <li>الدفعة الثانية: 50% عند وصول العامل</li>
+                    <li>يمكن التقسيط على 3 دفعات (بموافقة الإدارة)</li>
+                    <li>طرق الدفع: نقداً، تحويل بنكي، شيكات معتمدة</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h2>5. فترة الضمان</h2>
+                
+                <div class="info-box">
+                    <h3>ضمان لمدة 3 أشهر من تاريخ الوصول</h3>
+                    <p>يشمل الضمان الحالات التالية:</p>
+                    <ul>
+                        <li>عدم مناسبة العامل للعمل المطلوب</li>
+                        <li>اكتشاف أمراض غير ظاهرة في الفحص الطبي</li>
+                        <li>مشاكل سلوكية خطيرة</li>
+                        <li>عدم إجادة المهارات المتفق عليها</li>
+                    </ul>
+                </div>
+
+                <h3>5.1 شروط الضمان:</h3>
+                <ul>
+                    <li>إشعار المكتب خلال 7 أيام من اكتشاف المشكلة</li>
+                    <li>تقديم تقرير طبي معتمد (للمشاكل الصحية)</li>
+                    <li>إعطاء العامل فرصة التحسن والتدريب</li>
+                    <li>عدم وجود سوء معاملة من العميل</li>
+                </ul>
+
+                <div class="warning-box">
+                    <h3>حالات عدم سريان الضمان:</h3>
+                    <ul>
+                        <li>سوء المعاملة أو عدم دفع الراتب</li>
+                        <li>تكليف العامل بأعمال خارج التخصص</li>
+                        <li>عدم توفير السكن أو الطعام المناسب</li>
+                        <li>انتهاك حقوق العامل المنصوص عليها نظامياً</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>6. التزامات العميل</h2>
+                
+                <h3>6.1 التزامات عامة:</h3>
+                <ul>
+                    <li>المعاملة الإنسانية الكريمة للعامل</li>
+                    <li>توفير السكن المناسب والآمن</li>
+                    <li>توفير الوجبات الصحية المناسبة</li>
+                    <li>دفع الراتب في موعده المحدد</li>
+                    <li>توفير الرعاية الصحية اللازمة</li>
+                    <li>الالتزام بساعات العمل النظامية</li>
+                    <li>احترام الخصوصية والكرامة الشخصية</li>
+                </ul>
+
+                <h3>6.2 التزامات قانونية:</h3>
+                <ul>
+                    <li>استخراج الإقامة والتأمين الطبي</li>
+                    <li>الالتزام بأنظمة العمل والعمال</li>
+                    <li>عدم نقل كفالة العامل دون إذن مسبق</li>
+                    <li>تسهيل إجراءات السفر عند انتهاء العقد</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h2>7. التزامات المكتب</h2>
+                
+                <ul>
+                    <li>اختيار العمالة المناسبة حسب المواصفات المطلوبة</li>
+                    <li>التأكد من صحة الوثائق والمستندات</li>
+                    <li>إجراء الفحوصات الطبية الشاملة</li>
+                    <li>تدريب العمالة على المهارات الأساسية</li>
+                    <li>متابعة الإجراءات حتى وصول العامل</li>
+                    <li>تقديم الدعم الفني خلال فترة الضمان</li>
+                    <li>الالتزام بالمواعيد المحددة (إلا لأسباب خارجة عن الإرادة)</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h2>8. حالات إلغاء العقد</h2>
+                
+                <h3>8.1 إلغاء من جانب العميل:</h3>
+                <ul>
+                    <li>قبل بدء الإجراءات: استرداد 90% من المبلغ</li>
+                    <li>بعد بدء الإجراءات: استرداد 70% من المبلغ</li>
+                    <li>بعد صدور التأشيرة: استرداد 50% من المبلغ</li>
+                    <li>بعد وصول العامل: لا يحق الاسترداد</li>
+                </ul>
+
+                <h3>8.2 إلغاء من جانب المكتب:</h3>
+                <ul>
+                    <li>عدم توفر العمالة المناسبة</li>
+                    <li>تغيير الأنظمة الحكومية</li>
+                    <li>ظروف قاهرة (جائحة، حروب، إلخ)</li>
+                    <li>في هذه الحالات: استرداد كامل للمبلغ</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h2>9. تسوية النزاعات</h2>
+                
+                <div class="info-box">
+                    <h3>آلية حل النزاعات:</h3>
+                    <ol style="margin-right: 2rem;">
+                        <li><strong>المرحلة الأولى:</strong> التواصل المباشر مع إدارة المكتب</li>
+                        <li><strong>المرحلة الثانية:</strong> الوساطة عبر لجنة داخلية</li>
+                        <li><strong>المرحلة الثالثة:</strong> التحكيم وفقاً للأنظمة السعودية</li>
+                        <li><strong>المرحلة الأخيرة:</strong> اللجوء للمحاكم المختصة</li>
+                    </ol>
+                </div>
+
+                <p><strong>الاختصاص القضائي:</strong> محاكم منطقة الرياض هي المختصة بنظر أي نزاعات تنشأ عن هذا العقد.</p>
+            </div>
+
+            <div class="section">
+                <h2>10. أحكام عامة</h2>
+                
+                <h3>10.1 القوة القاهرة:</h3>
+                <p>لا يتحمل المكتب المسؤولية عن التأخير أو عدم التنفيذ الناتج عن ظروف قاهرة مثل:</p>
+                <ul>
+                    <li>الكوارث الطبيعية والجائحات</li>
+                    <li>تغيير الأنظمة والقوانين الحكومية</li>
+                    <li>إغلاق الحدود أو توقف الطيران</li>
+                    <li>أعمال الحروب والاضطرابات</li>
+                </ul>
+
+                <h3>10.2 سرية المعلومات:</h3>
+                <p>يلتزم الطرفان بالحفاظ على سرية جميع المعلومات المتبادلة وعدم إفشائها لأطراف ثالثة.</p>
+
+                <h3>10.3 تعديل الشروط:</h3>
+                <p>يحق للمكتب تعديل هذه الشروط بعد إشعار العملاء مسبقاً، ولا تؤثر التعديلات على العقود القائمة.</p>
+            </div>
+
+            <div class="section">
+                <h2>11. معلومات الترخيص</h2>
+                
+                <div class="contact-info">
+                    <h3>بيانات المكتب الرسمية:</h3>
+                    <ul>
+                        <li><strong>الاسم التجاري:</strong> مكتب الأمم للاستقدام</li>
+                        <li><strong>رقم الترخيص:</strong> [رقم ترخيص وزارة الموارد البشرية]</li>
+                        <li><strong>السجل التجاري:</strong> [رقم السجل التجاري]</li>
+                        <li><strong>الرقم الضريبي:</strong> [الرقم الضريبي]</li>
+                        <li><strong>العنوان:</strong> حي السليمانية، الرياض، المملكة العربية السعودية</li>
+                        <li><strong>تاريخ التأسيس:</strong> 2010</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="contact-info">
+                <h2>12. التواصل والاستفسارات</h2>
+                <p>للاستفسارات حول الشروط والأحكام أو الخدمات:</p>
+                <ul>
+                    <li><strong>الهاتف:</strong> <a href="tel:+966500851716" style="color: #1e40af;">+966 50 085 1716</a></li>
+                    <li><strong>البريد الإلكتروني:</strong> <a href="/cdn-cgi/l/email-protection#254c4b434a6556444848440856440b464a48" style="color: #1e40af;"><span class="__cf_email__" data-cfemail="e0898e868fa093818d8d81cd9381ce838f8d">[email&#160;protected]</span></a></li>
+                    <li><strong>واتساب:</strong> <a href="https://wa.me/966500851716" style="color: #1e40af;">+966 50 085 1716</a></li>
+                    <li><strong>العنوان:</strong> حي السليمانية، الرياض</li>
+                    <li><strong>ساعات العمل:</strong> السبت - الخميس: 8:00 ص - 10:00 م</li>
+                </ul>
+            </div>
+
+            <div style="text-align: center; margin: 3rem 0;">
+                <a href="/" class="btn">العودة للصفحة الرئيسية</a>
+                <a href="/privacy.html" class="btn" style="background: #6b7280;">سياسة الخصوصية</a>
+            </div>
+
+            <div class="warning-box">
+                <p><strong>إقرار مهم:</strong> بتوقيع العقد أو استخدام خدماتنا، فإنكم تقرون بأنكم قد قرأتم وفهمتم ووافقتم على جميع الشروط والأحكام المذكورة أعلاه.</p>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 مكتب الأمم للاستقدام. جميع الحقوق محفوظة.</p>
+            <p>مرخص من وزارة الموارد البشرية والتنمية الاجتماعية</p>
+        </div>
+    </footer>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script></body>
+</html>

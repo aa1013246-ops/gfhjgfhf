@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<script type="text/javascript">
+  // This is a CodeSandbox injection script that's used to
+  // add navigation and inspector functionality to the preview
+  (function () {
+    // 1) Get the <script> tag that's currently running:
+    var me = document.currentScript;
+
+    // 2) Create the blocking‐style <script> to load:
+    var script = document.createElement("script");
+    script.src = "https://codesandbox.io/p/preview-protocol.js";
+
+    // By default a dynamically‐inserted <script> is async=true.
+    // Turn async off to make it behave like a normal blocking <script>:
+    script.async = false;
+    // (Do NOT set defer.)
+
+    // 3) Insert it immediately after the current <script>:
+    me.parentNode.insertBefore(script, me);
+  })();
+
+  const isIFramePreview = window.top !== window.self;
+
+  // Only run this script in editor context
+  if (isIFramePreview) {
+    // This script is used to enable Chrome DevTools functionality
+    (function () {
+      var script = document.createElement("script");
+      script.src =
+        "https://codesandbox.io/p/chrome-devtool/protocol/index.js";
+
+      script.onload = () => {
+        const devtoolProtocol = window.chobitsu;
+        if (devtoolProtocol) {
+          window.addEventListener("message", (event) => {
+            const { type, data } = event.data;
+
+            if (type === "FROM_DEVTOOL") {
+              devtoolProtocol.sendRawMessage(data);
+            }
+          });
+
+          devtoolProtocol.setOnMessage((data) => {
+            if (data.includes('"id":"tmp')) {
+              return;
+            }
+
+            window.parent.postMessage({ type: "TO_DEVTOOL", data }, "*");
+          });
+
+          devtoolProtocol.sendRawMessage(
+            `{"id":5,"method":"Runtime.enable","params":{}}`
+          );
+        }        
+      }
+
+      (document.head || document.documentElement).prepend(script);
+    })();
+  }
+
+  if (typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ === "undefined") {
+    let nextID = 0;
+    let hook = (__REACT_DEVTOOLS_GLOBAL_HOOK__ = {
+      renderers: new Map(),
+      supportsFiber: true,
+      inject: (renderer) => {
+        const id = nextID++;
+        hook.renderers.set(id, renderer);
+        return id;
+      },
+      onScheduleFiberRoot() {},
+      onCommitFiberRoot() {},
+      onCommitFiberUnmount() {},
+    });
+  }
+
+  document.currentScript.remove();
+</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>خدماتنا المتخصصة - مكتب الأمم للاستقدام</title>
+    <meta name="description" content="تعرف على جميع خدمات مكتب الأمم للاستقدام المتخصصة: استقدام العمالة المنزلية، السائقين، المربيات، ورعاية كبار السن">
+    <link rel="canonical" href="https://samma-sa.com/services">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- External CSS -->
+    <link rel="stylesheet" href="styles/main.css">
+    
+    <!-- PWA Meta Tags -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#1e40af">
+</head>
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            line-height: 1.7;
+            color: var(--text-primary);
+            background: var(--background);
+            direction: rtl;
+            text-align: right;
+        }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+        .header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 4rem 0 2rem;
+            text-align: center;
+        }
+
+        .page-title {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            font-family: 'Amiri', serif;
+        }
+
+        .page-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+
+        .breadcrumb {
+            background: var(--background-light);
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .breadcrumb a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .services-detailed {
+            padding: 4rem 0;
+        }
+
+        .service-detailed {
+            background: white;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            margin-bottom: 3rem;
+            overflow: hidden;
+        }
+
+        .service-header {
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 2rem;
+            position: relative;
+        }
+
+        .service-icon-large {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .service-title-large {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .service-price {
+            background: rgba(255,255,255,0.2);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .service-content {
+            padding: 2rem;
+        }
+
+        .service-description-detailed {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            color: var(--text-secondary);
+        }
+
+        .service-features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .feature-card {
+            background: var(--background-light);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-right: 4px solid var(--primary-color);
+        }
+
+        .feature-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--primary-dark);
+        }
+
+        .process-steps {
+            background: var(--background-light);
+            padding: 2rem;
+            border-radius: 8px;
+            margin-top: 2rem;
+        }
+
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .step-item {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: var(--shadow);
+        }
+
+        .step-number {
+            width: 40px;
+            height: 40px;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-weight: 700;
+        }
+
+        .cta-section {
+            background: var(--primary-color);
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 15px 30px;
+            background: var(--accent-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin: 0.5rem;
+        }
+
+        .btn:hover {
+            background: #d97706;
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid white;
+        }
+
+        .btn-outline:hover {
+            background: white;
+            color: var(--primary-color);
+        }
+
+        @media (max-width: 768px) {
+            .page-title { font-size: 2rem; }
+            .service-title-large { font-size: 2rem; }
+            .service-features-grid { grid-template-columns: 1fr; }
+            .steps-grid { grid-template-columns: 1fr; }
+        }
+
+<body>
+    <header class="header">
+        <div class="container">
+            <h1 class="page-title">خدماتنا المتخصصة</h1>
+            <p class="page-subtitle">تعرف على جميع خدمات الاستقدام التي نقدمها بأعلى معايير الجودة والمهنية</p>
+        </div>
+    </header>
+
+    <nav class="breadcrumb">
+        <div class="container">
+            <a href="/">الرئيسية</a> / <span>خدماتنا</span>
+        </div>
+    </nav>
+
+    <main class="services-detailed">
+        <div class="container">
+            <!-- خدمة استقدام العمالة المنزلية -->
+            <section class="service-detailed">
+                <div class="service-header">
+                    <div class="service-icon-large">🏠</div>
+                    <h2 class="service-title-large">استقدام العمالة المنزلية</h2>
+                    <p>الخدمة الأكثر طلباً - عمالة منزلية مدربة ومؤهلة من أفضل الدول</p>
+                    <div class="service-price">
+                        <strong>الأسعار تبدأ من 8,000 ريال شاملة جميع الرسوم</strong>
+                    </div>
+                </div>
+                <div class="service-content">
+                    <p class="service-description-detailed">
+                        نوفر لكم أفضل العمالة المنزلية المدربة والمؤهلة من الفلبين وإندونيسيا وبنغلاديش وسريلانكا. جميع العاملات يخضعن لفحوصات طبية شاملة ودورات تدريبية متخصصة قبل السفر لضمان كفاءتهن في أداء المهام المنزلية المختلفة.
+                    </p>
+                    
+                    <div class="service-features-grid">
+                        <div class="feature-card">
+                            <h4 class="feature-title">الجنسيات المتوفرة</h4>
+                            <p>فلبينية، إندونيسية، بنغلاديشية، سريلانكية، نيبالية</p>
+                        </div>
+                        <div class="feature-card">
+                            <h4 class="feature-title">المهارات المتاحة</h4>
+                            <p>تنظيف، طبخ، كي، رعاية أطفال، رعاية مسنين</p>
+                        </div>
+                        <div class="feature-card">
+                            <h4 class="feature-title">اللغات</h4>
+                            <p>عربية أساسية، إنجليزية، لغاتهن الأصلية</p>
+                        </div>
+                        <div class="feature-card">
+                            <h4 class="feature-title">مدة الإنجاز</h4>
+                            <p>45-75 يوم حسب الجنسية والمتطلبات</p>
+                        </div>
+                    </div>
+
+                    <div class="process-steps">
+                        <h3>خطوات الاستقدام</h3>
+                        <div class="steps-grid">
+                            <div class="step-item">
+                                <div class="step-number">1</div>
+                                <h4>الاستشارة والتعاقد</h4>
+                                <p>تحديد المتطلبات وتوقيع العقد</p>
+                            </div>
+                            <div class="step-item">
+                                <div class="step-number">2</div>
+                                <h4>اختيار العاملة</h4>
+                                <p>عرض السير الذاتية والاختيار</p>
+                            </div>
+                            <div class="step-item">
+                                <div class="step-number">3</div>
+                                <h4>الإجراءات والوثائق</h4>
+                                <p>استخراج التأشيرة والأوراق</p>
+                            </div>
+                            <div class="step-item">
+                                <div class="step-number">4</div>
+                                <h4>السفر والوصول</h4>
+                                <p>ترتيب السفر واستقبال العاملة</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- خدمة استقدام السائقين -->
+            <section class="service-detailed">
+                <div class="service-header">
+                    <div class="service-icon-large">🚗</div>
+                    <h2 class="service-title-large">استقدام السائقين المحترفين</h2>
+                    <p>سائقون ماهرون وموثوقون للقيادة الآمنة والمهنية</p>
+                    <div class="service-price">
+                        <strong>الأسعار تبدأ من 10,000 ريال شاملة التدريب والرخصة</strong>
+                    </div>
+                </div>
+                <div class="service-content">
+                    <p class="service-description-detailed">
+                        نوفر سائقين محترفين ومدربين من بنغلاديش والهند والفلبين مع خبرة واسعة في القيادة. جميع السائقين يخضعون لاختبارات القيادة ودورات تدريبية على قوانين المرور السعودية وآداب القيادة المهنية.
+                    </p>
+                    
+                    <div class="service-features-grid">
+                        <div class="feature-card">
+                            <h4 class="feature-title">الخبرة</h4>
+                            <p>5-15 سنة خبرة في القيادة المهنية</p>
+                        </div>
+                        <div class="feature-card">
+                            <h4 class="feature-title">التدريب</h4>
+                            <p>قوانين المرور السعودية، قيادة دفاعية</p>
+                        </div>
+                        <div class="feature-card">
+                            <h4 class="feature-title">الرخصة</h4>
+                            <p>مساعدة في استخراج الرخصة السعودية</p>
+                        </div>
+                        <div class="feature-card">
+                            <h4 class="feature-title">التأمين</h4>
+                            <p>تأمين شامل ضد الحوادث</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- خدمة استقدام المربيات -->
+            <section class="service-detailed">
+                <div class="service-header">
+                    <div class="service-icon-large">👶</div>
+                    <h2 class="service-title-large">استقدام مربيات الأطفال</h2>
+                    <p>مربيات مؤهلات ومدربات على أحدث أساليب التربية والرعاية</p>
+                    <div class="service-price">
+                        <strong>الأسعار تبدأ من 9,000 ريال مع شهادات التدريب</strong>
+                    </div>
+                </div>
+                <div class="service-content">
+                    <p class="service-description-detailed">
+                        نقدم مربيات أطفال مؤهلات ومدربات على أحدث الطرق التربوية والتعليمية. جميع المربيات حاصلات على دورات في التربية وعلم النفس ورعاية الأطفال من مختلف الأعمار.
+                    </p>
+                    
+                    <div class="service-features-grid">
+                        <div class="feature-card">
+                            <h4 class="feature-title">التأهيل</h4>
+                            <p>دبلوم تربية أطفال، دورات علم النفس</p>
+                        </div>
+                        <div class="feature-card">
+                            <h4 class="feature-title">الخبرة</h4>
+                            <p>3-10 سنوات في رعاية الأطفال</p>
+                        </div>
+                        <div class="feature-card">
+                            <h4 class="feature-title">المهارات</h4>
+                            <p>التعليم المبكر، ألعاب تنمية المواهب</p>
+                        </div>
+                        <div class="feature-card">
+                            <h4 class="feature-title">الأعمار</h4>
+                            <p>من الولادة حتى 15 سنة</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <section class="cta-section">
+        <div class="container">
+            <h2 style="margin-bottom: 1rem;">هل تحتاج لأي من خدماتنا؟</h2>
+            <p style="margin-bottom: 2rem;">فريقنا جاهز لمساعدتك في اختيار الخدمة المناسبة وبدء الإجراءات فوراً</p>
+            <a href="tel:+966500851716" class="btn">اتصل بنا الآن</a>
+            <a href="https://wa.me/966500851716" class="btn btn-outline">واتساب</a>
+            <a href="/" class="btn btn-outline">العودة للرئيسية</a>
+        </div>
+    </section>
+    
+    <!-- External JavaScript -->
+    <script src="js/main.js"></script>
+    
+    <!-- Service Worker Registration -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(registration => console.log('SW registered: ', registration))
+                    .catch(registrationError => console.log('SW registration failed: ', registrationError));
+            });
+        }
+    </script>
+</body>
+</html>

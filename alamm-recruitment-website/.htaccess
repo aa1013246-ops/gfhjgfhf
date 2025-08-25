@@ -1,0 +1,393 @@
+# .htaccess for Al-Umam Recruitment Office (samma-sa.com)
+# Enhanced security, performance, and SEO optimization
+
+# Security Headers
+<IfModule mod_headers.c>
+    # X-Frame-Options
+    Header always set X-Frame-Options "DENY"
+    
+    # X-Content-Type-Options
+    Header always set X-Content-Type-Options "nosniff"
+    
+    # X-XSS-Protection
+    Header always set X-XSS-Protection "1; mode=block"
+    
+    # Referrer Policy
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    
+    # Enhanced Content Security Policy
+    Header always set Content-Security-Policy "default-src 'self' 'unsafe-inline' 'unsafe-eval' https: data:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https: blob:; font-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com; connect-src 'self' https: wss:; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests;"
+    
+    # Strict Transport Security (HTTPS only)
+    Header always set Strict-Transport-Security "max-age=63072000; includeSubDomains; preload"
+    
+    # Permissions Policy (Feature Policy replacement)
+    Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(self), payment=(), usb=(), magnetometer=(), gyroscope=(), speaker=(), vibrate=(), fullscreen=(self), sync-xhr=()"
+    
+    # Cross-Origin Policies
+    Header always set Cross-Origin-Embedder-Policy "require-corp"
+    Header always set Cross-Origin-Opener-Policy "same-origin"
+    Header always set Cross-Origin-Resource-Policy "cross-origin"
+    
+    # Security.txt support
+    Header always set X-Robots-Tag "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+    
+    # Remove Server Information
+    Header unset Server
+    Header unset X-Powered-By
+    Header unset X-Generator
+    
+    # Anti-clickjacking for specific pages
+    <FilesMatch "\.(html|php)$">
+        Header always set X-Frame-Options "SAMEORIGIN"
+    </FilesMatch>
+</IfModule>
+
+# Force HTTPS Redirect
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    
+    # Redirect HTTP to HTTPS
+    RewriteCond %{HTTPS} off
+    RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+    
+    # Redirect www to non-www
+    RewriteCond %{HTTP_HOST} ^www\.samma-sa\.com [NC]
+    RewriteRule ^(.*)$ https://samma-sa.com/$1 [L,R=301]
+    
+    # Remove trailing slashes
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(.*)/$ /$1 [L,R=301]
+    
+    # Remove .html extension from URLs
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^([^.]+)$ $1.html [NC,L]
+    
+    # Hide .html extension
+    RewriteCond %{THE_REQUEST} /([^.]+)\.html [NC]
+    RewriteRule ^ /%1 [NC,L,R]
+</IfModule>
+
+# Enable Compression
+<IfModule mod_deflate.c>
+    # Compress HTML, CSS, JavaScript, Text, XML and fonts
+    AddOutputFilterByType DEFLATE application/javascript
+    AddOutputFilterByType DEFLATE application/rss+xml
+    AddOutputFilterByType DEFLATE application/vnd.ms-fontobject
+    AddOutputFilterByType DEFLATE application/x-font
+    AddOutputFilterByType DEFLATE application/x-font-opentype
+    AddOutputFilterByType DEFLATE application/x-font-otf
+    AddOutputFilterByType DEFLATE application/x-font-truetype
+    AddOutputFilterByType DEFLATE application/x-font-ttf
+    AddOutputFilterByType DEFLATE application/x-javascript
+    AddOutputFilterByType DEFLATE application/xhtml+xml
+    AddOutputFilterByType DEFLATE application/xml
+    AddOutputFilterByType DEFLATE font/opentype
+    AddOutputFilterByType DEFLATE font/otf
+    AddOutputFilterByType DEFLATE font/ttf
+    AddOutputFilterByType DEFLATE image/svg+xml
+    AddOutputFilterByType DEFLATE image/x-icon
+    AddOutputFilterByType DEFLATE text/css
+    AddOutputFilterByType DEFLATE text/html
+    AddOutputFilterByType DEFLATE text/javascript
+    AddOutputFilterByType DEFLATE text/plain
+    AddOutputFilterByType DEFLATE text/xml
+    
+    # Remove browser bugs (only needed for really old browsers)
+    BrowserMatch ^Mozilla/4 gzip-only-text/html
+    BrowserMatch ^Mozilla/4\.0[678] no-gzip
+    BrowserMatch \bMSIE !no-gzip !gzip-only-text/html
+    Header append Vary User-Agent
+</IfModule>
+
+# Leverage Browser Caching
+<IfModule mod_expires.c>
+    ExpiresActive on
+    
+    # Images
+    ExpiresByType image/jpg "access plus 1 year"
+    ExpiresByType image/jpeg "access plus 1 year"
+    ExpiresByType image/gif "access plus 1 year"
+    ExpiresByType image/png "access plus 1 year"
+    ExpiresByType image/svg+xml "access plus 1 year"
+    ExpiresByType image/webp "access plus 1 year"
+    ExpiresByType image/x-icon "access plus 1 year"
+    
+    # CSS and JavaScript
+    ExpiresByType text/css "access plus 1 month"
+    ExpiresByType application/javascript "access plus 1 month"
+    ExpiresByType application/x-javascript "access plus 1 month"
+    ExpiresByType text/javascript "access plus 1 month"
+    
+    # HTML
+    ExpiresByType text/html "access plus 0 seconds"
+    
+    # Fonts
+    ExpiresByType application/vnd.ms-fontobject "access plus 1 year"
+    ExpiresByType font/ttf "access plus 1 year"
+    ExpiresByType font/otf "access plus 1 year"
+    ExpiresByType font/woff "access plus 1 year"
+    ExpiresByType font/woff2 "access plus 1 year"
+    ExpiresByType application/font-woff "access plus 1 year"
+    
+    # Documents
+    ExpiresByType application/pdf "access plus 1 month"
+    ExpiresByType application/x-shockwave-flash "access plus 1 month"
+    
+    # Manifest
+    ExpiresByType application/manifest+json "access plus 1 week"
+    ExpiresByType text/cache-manifest "access plus 0 seconds"
+</IfModule>
+
+# Cache-Control Headers
+<IfModule mod_headers.c>
+    # CSS and JS
+    <FilesMatch "\.(css|js)$">
+        Header set Cache-Control "max-age=2628000, public"
+    </FilesMatch>
+    
+    # Images
+    <FilesMatch "\.(ico|jpg|jpeg|png|gif|svg|webp)$">
+        Header set Cache-Control "max-age=31536000, public"
+    </FilesMatch>
+    
+    # Fonts
+    <FilesMatch "\.(eot|ttf|otf|woff|woff2)$">
+        Header set Cache-Control "max-age=31536000, public"
+    </FilesMatch>
+    
+    # HTML
+    <FilesMatch "\.(html|htm)$">
+        Header set Cache-Control "no-cache, no-store, must-revalidate"
+        Header set Pragma "no-cache"
+        Header set Expires 0
+    </FilesMatch>
+</IfModule>
+
+# Disable Server Signature
+ServerSignature Off
+
+# Hide Apache Version
+<IfModule mod_security.c>
+    SecServerSignature " "
+</IfModule>
+
+# Prevent access to sensitive files
+<FilesMatch "^\.">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+<FilesMatch "\.(htaccess|htpasswd|ini|log|sh|sql|tar|gz)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# Custom Error Pages
+ErrorDocument 400 /error/400.html
+ErrorDocument 401 /error/401.html
+ErrorDocument 403 /error/403.html
+ErrorDocument 404 /error/404.html
+ErrorDocument 500 /error/500.html
+ErrorDocument 502 /error/502.html
+ErrorDocument 503 /error/503.html
+
+# Enable KeepAlive
+<IfModule mod_headers.c>
+    Header set Connection keep-alive
+</IfModule>
+
+# Charset for text files
+<IfModule mod_mime.c>
+    AddCharset utf-8 .html .css .js .xml .json .rss .atom
+</IfModule>
+
+# MIME Types
+<IfModule mod_mime.c>
+    # Web fonts
+    AddType application/vnd.ms-fontobject .eot
+    AddType font/ttf .ttf
+    AddType font/otf .otf
+    AddType font/x-woff .woff
+    AddType font/x-woff .woff2
+    
+    # Assorted types
+    AddType application/octet-stream .safariextz
+    AddType application/x-chrome-extension .crx
+    AddType application/x-opera-extension .oex
+    AddType application/x-shockwave-flash .swf
+    AddType application/x-web-app-manifest+json .webapp
+    AddType application/x-xpinstall .xpi
+    AddType application/xml .rss .atom .xml .rdf
+    AddType image/webp .webp
+    AddType image/x-icon .ico
+    AddType text/cache-manifest .appcache .manifest
+    AddType text/vtt .vtt
+    AddType text/x-component .htc
+    AddType application/manifest+json .json
+</IfModule>
+
+# Block bad bots and crawlers
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    
+    # Block bad user agents
+    RewriteCond %{HTTP_USER_AGENT} (ahrefs|majestic|mj12bot|dotbot) [NC]
+    RewriteRule .* - [F,L]
+    
+    # Block bad referers
+    RewriteCond %{HTTP_REFERER} (semalt\.com|darodar\.com|soundfrost\.org|buttons-for-website\.com) [NC,OR]
+    RewriteCond %{HTTP_REFERER} (social-buttons\.com|siteripz\.net|myprintscreen\.com) [NC]
+    RewriteRule .* - [F,L]
+</IfModule>
+
+# Protect against XSS attacks
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteCond %{QUERY_STRING} (<|%3C).*script.*(>|%3E) [NC,OR]
+    RewriteCond %{QUERY_STRING} GLOBALS(=|[|%[0-9A-Z]{0,2}) [OR]
+    RewriteCond %{QUERY_STRING} _REQUEST(=|[|%[0-9A-Z]{0,2}) [OR]
+    RewriteCond %{QUERY_STRING} ^.*(\[|\]|\(|\)|<|>).* [NC,OR]
+    RewriteCond %{QUERY_STRING} ^.*(\\x00|\\x04|\\x08|\\x0d|\\x1b|\\x20|\\x3c|\\x3e|\\x7f).* [NC]
+    RewriteRule ^(.*)$ - [F,L]
+</IfModule>
+
+# Prevent PHP injection attacks
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteCond %{REQUEST_METHOD} GET
+    RewriteCond %{QUERY_STRING} [a-zA-Z0-9_]=http:// [OR]
+    RewriteCond %{QUERY_STRING} [a-zA-Z0-9_]=(\.\.//?)+ [OR]
+    RewriteCond %{QUERY_STRING} [a-zA-Z0-9_]=/([a-z0-9_.]//?)+ [NC]
+    RewriteRule .* - [F,L]
+</IfModule>
+
+# Add Arabic language support
+<IfModule mod_mime.c>
+    AddLanguage ar .html
+    AddCharset utf-8 .html
+</IfModule>
+
+# Set default language
+<IfModule mod_negotiation.c>
+    LanguagePriority ar en
+    ForceLanguagePriority Prefer
+</IfModule>
+
+# Advanced Performance Optimization
+<IfModule mod_deflate.c>
+    # Enable compression for all text-based files
+    SetOutputFilter DEFLATE
+    
+    # Exclude already compressed files
+    SetEnvIfNoCase Request_URI \\
+        \\.(?:gif|jpe?g|png|webp|woff2?|eot|ttf|otf|svg|ico)$ no-gzip dont-vary
+    SetEnvIfNoCase Request_URI \\
+        \\.(?:exe|t?gz|zip|bz2|sit|rar|7z)$ no-gzip dont-vary
+        
+    # Vary header for proper caching
+    Header append Vary Accept-Encoding
+</IfModule>
+
+# Enhanced Browser Caching
+<IfModule mod_expires.c>
+    ExpiresActive On
+    
+    # Static assets - 1 year
+    ExpiresByType text/css "access plus 1 year"
+    ExpiresByType application/javascript "access plus 1 year"
+    ExpiresByType application/x-javascript "access plus 1 year"
+    
+    # Web fonts - 1 month
+    ExpiresByType font/woff "access plus 1 month"
+    ExpiresByType font/woff2 "access plus 1 month"
+    ExpiresByType application/font-woff "access plus 1 month"
+    ExpiresByType application/font-woff2 "access plus 1 month"
+    ExpiresByType application/vnd.ms-fontobject "access plus 1 month"
+    ExpiresByType font/opentype "access plus 1 month"
+    ExpiresByType application/x-font-ttf "access plus 1 month"
+    
+    # Images - 6 months
+    ExpiresByType image/jpeg "access plus 6 months"
+    ExpiresByType image/jpg "access plus 6 months"
+    ExpiresByType image/png "access plus 6 months"
+    ExpiresByType image/gif "access plus 6 months"
+    ExpiresByType image/webp "access plus 6 months"
+    ExpiresByType image/svg+xml "access plus 6 months"
+    ExpiresByType image/x-icon "access plus 6 months"
+    ExpiresByType image/vnd.microsoft.icon "access plus 6 months"
+    
+    # HTML, XML - 1 hour
+    ExpiresByType text/html "access plus 1 hour"
+    ExpiresByType application/xml "access plus 1 hour"
+    ExpiresByType text/xml "access plus 1 hour"
+    
+    # Manifest and service worker - 0 (no cache)
+    ExpiresByType application/manifest+json "access plus 0 seconds"
+    ExpiresByType text/cache-manifest "access plus 0 seconds"
+    
+    # Default - 1 week
+    ExpiresDefault "access plus 1 week"
+</IfModule>
+
+# Performance Headers
+<IfModule mod_headers.c>
+    # Cache-Control for static assets
+    <FilesMatch "\\.(css|js|woff2?|eot|ttf|otf)$">
+        Header set Cache-Control "public, max-age=31536000, immutable"
+    </FilesMatch>
+    
+    <FilesMatch "\\.(jpg|jpeg|png|gif|webp|svg|ico)$">
+        Header set Cache-Control "public, max-age=15552000"
+    </FilesMatch>
+    
+    <FilesMatch "\\.(html|htm)$">
+        Header set Cache-Control "public, max-age=3600, must-revalidate"
+    </FilesMatch>
+    
+    # Preload key resources
+    <FilesMatch "^(index\\.html|$)">
+        Header add Link "</styles/main.css>; rel=preload; as=style"
+        Header add Link "</js/main.js>; rel=preload; as=script"
+        Header add Link "<https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&family=Amiri:wght@400;700&display=swap>; rel=preload; as=style; crossorigin"
+    </FilesMatch>
+    
+    # DNS Prefetch for external resources
+    Header add Link "<//fonts.googleapis.com>; rel=dns-prefetch"
+    Header add Link "<//fonts.gstatic.com>; rel=dns-prefetch"
+    Header add Link "<//www.google-analytics.com>; rel=dns-prefetch"
+    
+    # Service Worker registration hint
+    <FilesMatch "\\.(html|htm)$">
+        Header add Service-Worker-Allowed "/"
+    </FilesMatch>
+</IfModule>
+
+# Enable ETag for better caching
+<IfModule mod_headers.c>
+    Header unset ETag
+    FileETag None
+</IfModule>
+
+# Error Pages (Arabic)
+<IfModule mod_alias.c>
+    ErrorDocument 400 /404.html
+    ErrorDocument 401 /404.html
+    ErrorDocument 403 /404.html
+    ErrorDocument 404 /404.html
+    ErrorDocument 500 /404.html
+    ErrorDocument 502 /404.html
+    ErrorDocument 503 /404.html
+</IfModule>
+
+# Security.txt location
+Redirect 301 /.well-known/security.txt /security.txt
+Redirect 301 /security.txt "mailto:info@samma-sa.com"
+
+# Robots.txt enhancement
+<Files "robots.txt">
+    <IfModule mod_headers.c>
+        Header set Cache-Control "public, max-age=86400"
+    </IfModule>
+</Files>

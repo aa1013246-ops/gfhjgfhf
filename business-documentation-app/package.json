@@ -1,0 +1,52 @@
+{
+  "name": "business-documentation-app",
+  "version": "1.0.0",
+  "description": "تطبيق توثيق النشاط التجاري بعلامة الزرقاء",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "next": "^14.0.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "@prisma/client": "^5.0.0",
+    "prisma": "^5.0.0",
+    "bcryptjs": "^2.4.3",
+    "jsonwebtoken": "^9.0.0",
+    "next-auth": "^4.24.0",
+    "tailwindcss": "^3.3.0",
+    "autoprefixer": "^10.4.0",
+    "postcss": "^8.4.0",
+    "@headlessui/react": "^1.7.0",
+    "@heroicons/react": "^2.0.0",
+    "react-hook-form": "^7.45.0",
+    "react-hot-toast": "^2.4.0",
+    "date-fns": "^2.30.0",
+    "chart.js": "^4.4.0",
+    "react-chartjs-2": "^5.2.0",
+    "xlsx": "^0.18.0",
+    "jspdf": "^2.5.0",
+    "html2canvas": "^1.4.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "eslint": "^8.0.0",
+    "eslint-config-next": "^14.0.0",
+    "typescript": "^5.0.0"
+  },
+  "keywords": [
+    "business",
+    "documentation",
+    "blue-badge",
+    "saudi-arabia",
+    "commercial-registry"
+  ],
+  "author": "Business Documentation Team",
+  "license": "MIT"
+}
